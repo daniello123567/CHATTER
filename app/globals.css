@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.notepicker{@apply max-w-3xl w-full grid mx-auto place-items-center pt-10 mb-10}
+.notepickerhead{@apply text-3xl text-center text-sky-300 mb-10}
+.myeditor{@apply prose w-full  flex flex-col px-4 py-3 justify-start border-b border-r border-l border-gray-700 text-gray-400
+items-start  gap-3 font-medium text-[16px] rounded-bl-md outline-none}
+.toolbar{@apply px-4 py-4 rounded-tl-md rounded-tr-md
+  flex justify-between items-start gap-5 w-full flex-wrap border border-gray-700}
+.btn-wrapper{@apply flex justify-start items-center gap-5 w-full lg:w-10/12 flex-wrap}
+.bg-switch-to-blue{@apply bg-sky-700 text-white transform scale-125 rounded-lg}
+.normal-bg{@apply text-sky-400}
+.editor-parent{@apply w-[38em] }
+.editor-parent{@apply w-[30em]}
+.skele span{@apply flex mx-auto justify-between flex-wrap}
+.skele span span{@apply rounded-[3em] mb-[1em]}
