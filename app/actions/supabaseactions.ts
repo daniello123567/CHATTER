@@ -8,6 +8,7 @@ async function GetArticleByQuery(search: string): Promise<any> {
   return articles;
 }
 async function GetArticleByCategory(category: string): Promise<any> {
+  category.toLowerCase();
   const { data: articles, error } = await supabase.from('articles').select('*').ilike('Category', `%${category}%`);
   return articles;
 }

@@ -1,4 +1,5 @@
 import { GetArticleById } from "@/app/actions/supabaseactions";
+import Header from "@/app/components/header";
 import Blog from "@/app/components/Blog";
 type Blogs = {
     id: string,
@@ -13,14 +14,15 @@ type Blogs = {
     name:string
 }
 type Blog = Array<Blogs>
-async function page({params}:{params:any}) {
+async function Page({params}:{params:any}) {
   const id = params.id;
   const data = await GetArticleById(id);
   const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
 
-  return (
-    <Blog name={name} created_at={created_at} title={Title} thumbnail={Thumbnail} content={Content}/>
-  )
+  return (<>
+    <Header/>
+    <Blog name={name} article_id={id} created_at={created_at} title={Title} thumbnail={Thumbnail} content={Content}/>
+    </> )
 }
 
-export default page
+export default Page
