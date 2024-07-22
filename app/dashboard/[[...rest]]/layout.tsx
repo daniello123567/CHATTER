@@ -1,8 +1,8 @@
-import React from 'react'
-
+import Header from "@/app/components/header"
 function RootLayout({children}:{children:React.ReactNode}) {
   return (
-    <div className=''>{children}</div>
+    <><Header/>
+      {children}</>
   )
 }
 

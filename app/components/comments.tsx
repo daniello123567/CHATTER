@@ -29,7 +29,9 @@ function Comments({article_id}:{article_id:string}) {
       article_id:article_id,
       created_at:Date.now(),
       id:Date.now()
+
     }
+    setComments([...comments,optimistic])
 
     const {data,error} = await supabase.from('comments').insert({
       name:user?.emailAddresses[0].emailAddress,
@@ -37,7 +39,6 @@ function Comments({article_id}:{article_id:string}) {
       user_id:user?.id,
       article_id:article_id,
     });
-    setComments([...comments,optimistic])
   }
   const fetchCommentsOfarticle = async ()=>{
    const {data,error} = await supabase.from('comments').select('*').eq('article_id',article_id);
