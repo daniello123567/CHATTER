@@ -1,18 +1,12 @@
 "use client"
 import supabase from "../utils/supabase"
 import { useState,useEffect } from "react"
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 function Likes({articleId,user_Id}:{articleId:string,user_Id:string|undefined}):JSX.Element {
 
   const [HasLiked,setHasLiked] = useState<boolean|null>(false);
   const [likesCount,setLikesCount] = useState<number|undefined|any>(0);
-  const {isLoaded,isSignedIn,user} = useUser();
-  const router = useRouter();
-  if(isLoaded&&!isSignedIn&&!user){
-    router.push('/signIn')
-  };
+
   const CheckIfUserHasLiked = async ()=>{
     const {data,error} = await supabase.from('likes')
     .select('*')

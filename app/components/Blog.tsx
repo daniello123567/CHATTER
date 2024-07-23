@@ -4,16 +4,19 @@ import convertDate from "../utils/dateConverter"
 import Comments from "./comments"
 const inter = Inter({ weight: "600", subsets: ["latin"] })
 const inter2 = Inter({ subsets: ["latin"] })
-function Blog({ title, thumbnail, article_id,content,name,created_at }: { created_at:string,article_id:string,title: string,name:string, thumbnail: string, content: string }
+function Blog({ title, thumbnail, article_id,content,name,created_at ,description}: { description:string,created_at:string,article_id:string,title: string,name:string, thumbnail: string, content: string }
 ) {
   return (
-    <div className="px-[2em] pt-[10em] lg:px-[15em]">
+    <div className="px-[2em] mx-auto lg:px-[10em] w-full pt-[10em]">
       <BackToBlogBtn/>
-      <div className={`text-[2em] mt-[1em] tracking-tight lg:text-[2.6875em] ${inter.className}`}>
+      <div className={`text-[2em] mt-[1em] w-full tracking-tight lg:text-[2.6875em] ${inter.className}`}>
         {title}. <span className="text-[.6em] text-gray-300">By {name}</span>
       </div>
-      <p className={`${inter2.className} text-gray-400`}>{convertDate(created_at)}</p>
-      <img className="w-full  mt-[4em] lg:rounded-[2em] lg:h-[30em] rounded-[1em] h-[ 21.875em] object-cover" src={thumbnail} alt="thumbnail" />
+      <p className={`${inter2.className}  text-gray-400`}>{convertDate(created_at)}</p>
+      <img className="w-full font-bold  mt-[4em] lg:rounded-[2em] lg:h-[30em] rounded-[1em] h-[ 21.875em] object-cover" src={thumbnail} alt="thumbnail" />
+      <div className={`${inter2.className} mt-[1em] rounded-[1em] grid place-items-center bg-slate-200 w-full h-[max-content] py-[3em]`}>
+        <p className="prose" ><blockquote >{description}</blockquote></p>
+        </div>
       <div dangerouslySetInnerHTML={{ __html: content }} className={`${inter2.className} mt-[2em] text-[1.25em] prose`}>
 
       </div>

@@ -19,10 +19,10 @@ async function Page({params}:{params:any}) {
   const data = await GetArticleById(id);
   const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
 
-  return (<>
+  return (<div className="w-full">
     <Header/>
-    <Blog name={name} article_id={id} created_at={created_at} title={Title} thumbnail={Thumbnail} content={Content}/>
-    </> )
+    <Blog name={name} article_id={id} created_at={created_at} title={Title} description={Description} thumbnail={Thumbnail} content={Content}/>
+    </div> )
 }
 
 export default Page

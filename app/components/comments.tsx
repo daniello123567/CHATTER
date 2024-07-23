@@ -21,6 +21,7 @@ function Comments({article_id}:{article_id:string}) {
 
   const [comments,setComments] = useState<B>([]);
   const commenter = async (formData:any)=>{
+
     const value = formData.get('content');
     const optimistic = {
       name:user?.emailAddresses[0].emailAddress,
@@ -49,13 +50,13 @@ function Comments({article_id}:{article_id:string}) {
   useEffect(()=>{fetchCommentsOfarticle()},[article_id])
   return (<>
     <form action={commenter} className=' mt-[6em]'>
-      <input className='border  w-full px-1 rounded mb-3 py-3' name="content" placeholder='comment on this post' type="text" />
+      <input className='border  w-[30%] block px-1 rounded mb-3 h-[4em]' name="content" placeholder='comment on this post' type="text" />
       <input className='bg-blue-600 font-bold px-2 py-1 text-white rounded' type="submit" value="comment" />
     </form>
     <div>
       {comments.map((comment:U)=>{
         return <div className="mt-[1em] border-b-2" key={comment.id}>
-          <div className="flex gap-2 items-center"><p className={`${inter.className} text-[2em]`}>{comment.name}</p>
+          <div className="flex gap-2 items-center"><p className={`${inter.className} text-[1em] lg:text-[2em]`}>{comment.name}</p>
           <p className="text-gray-400">{convertDate(comment.created_at)}</p></div>
           <div>{comment.content}</div>
         </div>
