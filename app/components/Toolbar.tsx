@@ -1,17 +1,46 @@
+"use client"
 import {
   Bold, Strikethrough, Italic, List, ListOrdered,
   Heading2, Underline, Quote, Undo, Redo, Code,
   Heading1,
-  Code2
+  Code2,
+  Image
 } from 'lucide-react'
-import { redo, undo } from '@tiptap/pm/history'
-
 import type { Editor } from '@tiptap/react';
-function Toolbar({ editor }: { editor: Editor | null }) {
+import { useState } from 'react'
+import { redo, undo } from '@tiptap/pm/history'
+import supabase from '../utils/supabase';
+
+function Toolbar({ editor,setLoader }: {setLoader:any, editor: Editor | null }) {
+
+  const handleImage = ()=>{
+    const image:HTMLInputElement|null = document.querySelector('.image-input')!;
+     image.click();
+  }
+  const getFileUrl = async (file:any,filename:any) =>{
+    const {data,error} = await supabase.storage.from('images').upload(
+       filename,
+       file,
+       {cacheControl:'200',upsert:false}
+    );
+    const response = supabase.storage.from('images').getPublicUrl(String(data?.path));
+    return response.data.publicUrl;
+  }
+  const returnFileInfo = async (e:any)=>{
+     const file = e?.target.files[0];
+     const filename = `${Date.now()}-${file.name}`;
+     setLoader(true)
+     const uploadToSupabaseUrl = await getFileUrl(file,filename);
+     setLoader(false)
+     editor?.chain().focus().setImage({
+      src: uploadToSupabaseUrl,
+      alt:`${filename}`
+      }).run()
+
+  }
   if (!editor) return null;
 
-  return (
-    <div className='toolbar'>
+  return (<>
       <div className="btn-wrapper">
         <button
           title='saka'
@@ -20,7 +49,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
             e.preventDefault();
             editor.chain().focus().toggleBold().run()
           }}
-          className={editor.isActive("bold") ? "bg-switch-to-blue" : "normal-bg"}>
+          >
           <Bold />
 
         </button>
@@ -172,8 +201,20 @@ function Toolbar({ editor }: { editor: Editor | null }) {
           <Code2 />
 
         </button>
+        <button
+          title='image'
+          type='button'
+          onClick={handleImage}
+          className={editor.isActive("image") ? "bg-switch-to-blue" : "normal-bg"}
+
+        >
+          <Image />
+
+        </button>
+        <input title='image' onChange={returnFileInfo} className='image-input hidden' type="file" />
+
       </div>
-    </div>
+      </>
   )
 }
 
