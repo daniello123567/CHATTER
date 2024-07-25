@@ -4,8 +4,8 @@
 
 .myeditor{@apply prose outline-none mt-[1em] prose-lead:leading-normal  prose-headings:mt-0 prose-headings:mb-0 prose-p:mb-0 prose-p:mt-0  w-full  flex flex-col px-4 py-3 justify-start border  border-gray-700 }
 .btn-wrapper{@apply flex items-center gap-5 justify-between w-full lg:w-10/12 flex-wrap}
-.bg-switch-to-blue{@apply bg-sky-700 text-white transform scale-125 rounded-lg}
-.normal-bg{@apply text-sky-400}
+.bg-switch-to-blue{@apply bg-sky-700 p-2 text-white transform scale-125 rounded-lg}
+.normal-bg{@apply p-2 text-sky-400}
 .editor-parent{@apply w-full mt-[2em] border p-[1em] }
 .skele span{@apply flex mx-auto justify-between flex-wrap}
 .skele span span{@apply rounded-[3em] mb-[1em]}

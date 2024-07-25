@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google"
 import Image from "next/image"
-
+import Link from "next/link";
 const inter = Inter({ weight: '600', subsets: ["latin"] });
 
 function Hero() {
@@ -13,9 +13,9 @@ function Hero() {
             Chatter  is a multi-functional platform for authors and readers to create and access content. Chatter seeks to knock off competition from Hashnode and Medium.
           </p>
           <div className="flex  items-center mt-[1em] gap-[0.75em]">
-            <button className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Become an author</button>
-            <button className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Sign up</button>
-            <button className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Explore Blog</button>
+            <Link href="/signUp" className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Become an author</Link>
+            <Link href="/signIn" className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Sign In</Link>
+            <Link href="/feed" className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Explore Blog</Link>
           </div>
 
         </div>

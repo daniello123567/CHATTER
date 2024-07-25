@@ -2,6 +2,7 @@
 import supabase from "../utils/supabase";
 import { useState,useEffect } from "react"
 import { Inter } from "next/font/google";
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 const inter = Inter({weight:"700",subsets:["latin"]})
 import convertDate from "../utils/dateConverter";
@@ -16,9 +17,8 @@ user_id?: string;
 type B = Array<U>
 
 function Comments({article_id}:{article_id:string}) {
+  const router = useRouter()
   const {user} = useUser();
-  console.log("fam",user?.emailAddresses[0].emailAddress);
-
   const [comments,setComments] = useState<B>([]);
   const commenter = async (formData:any)=>{
 
@@ -32,6 +32,8 @@ function Comments({article_id}:{article_id:string}) {
       id:Date.now()
 
     }
+
+    if(typeof user?.id!=='undefined'){
     setComments([...comments,optimistic])
 
     const {data,error} = await supabase.from('comments').insert({
@@ -40,7 +42,13 @@ function Comments({article_id}:{article_id:string}) {
       user_id:user?.id,
       article_id:article_id,
     });
+  }else{
+   router.push('/signUp')
   }
+
+  }
+
+
   const fetchCommentsOfarticle = async ()=>{
    const {data,error} = await supabase.from('comments').select('*').eq('article_id',article_id);
 
@@ -54,7 +62,7 @@ function Comments({article_id}:{article_id:string}) {
       <input className='bg-blue-600 font-bold px-2 py-1 text-white rounded' type="submit" value="comment" />
     </form>
     <div>
-      {comments.map((comment:U)=>{
+      {comments.toReversed().map((comment:U)=>{
         return <div className="mt-[1em] border-b-2" key={comment.id}>
           <div className="flex gap-2 items-center"><p className={`${inter.className} text-[1em] lg:text-[2em]`}>{comment.name}</p>
           <p className="text-gray-400">{convertDate(comment.created_at)}</p></div>

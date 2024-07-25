@@ -2,11 +2,11 @@
 import supabase from "../utils/supabase"
 import { useState,useEffect } from "react"
 import Image from "next/image";
-function Likes({articleId,user_Id}:{articleId:string,user_Id:string|undefined}):JSX.Element {
-
+import { useRouter } from "next/navigation";
+function Likes({articleId,user_Id}:{articleId:string,user_Id:string|undefined}){
+  const router = useRouter();
   const [HasLiked,setHasLiked] = useState<boolean|null>(false);
   const [likesCount,setLikesCount] = useState<number|undefined|any>(0);
-
   const CheckIfUserHasLiked = async ()=>{
     const {data,error} = await supabase.from('likes')
     .select('*')
@@ -30,7 +30,7 @@ function Likes({articleId,user_Id}:{articleId:string,user_Id:string|undefined}):
 
   },[articleId,user_Id])
 const handleLike = async ()=>{
-
+  if(user_Id!=='undefined'){
   if(HasLiked){
     setHasLiked(false);
     setLikesCount((prev:any)=>prev - 1)
@@ -41,7 +41,12 @@ const handleLike = async ()=>{
 
    const {data,error} = await supabase.from('likes').insert({user_id:user_Id,article_id:articleId});
    console.log(data,"error",error);
+  }}else{
+    router.push('/signUp')
+
   }
+
+
 }
   return (
     <div className="flex items-center text-gray-400 gap-[.2em]"><button onClick={handleLike} type="button">

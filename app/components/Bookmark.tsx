@@ -5,7 +5,8 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 function Bookmark({articleId,user_Id}:{articleId:string,user_Id:string|undefined}) {
-const [isBookmarked,setIsbookmarked] = useState(false)
+const router = useRouter()
+  const [isBookmarked,setIsbookmarked] = useState(false)
 const [bookmarkCount,setBookmarksCount] = useState<number|undefined>(0)
 const checkifUserhasBookmarked = async ()=>{
   const {data,error} = await supabase.from('bookmarks').select('*').eq('user_id',user_Id).eq('article_id',articleId);
@@ -16,6 +17,7 @@ const fetchBookmarksCount = async()=>{
   setBookmarksCount(data?.length)
 }
 const handleBookmark = async ()=>{
+  if(user_Id!=='undefined'){
   if(isBookmarked){
     setIsbookmarked(false);
     setBookmarksCount((prev:any)=>prev-1);
@@ -24,7 +26,10 @@ const handleBookmark = async ()=>{
     setIsbookmarked(true);
     setBookmarksCount((prev:any)=>prev + 1)
     const {data,error} = await supabase.from('bookmarks').insert({'user_id':user_Id,article_id:articleId});
+  }}else{
+  router.push('/signUp')
   }
+
 }
 useEffect(()=>{setIsbookmarked(false);setBookmarksCount(0);checkifUserhasBookmarked(),fetchBookmarksCount()},[user_Id,articleId]);
 return <div className="flex gap-1 items-center text-gray-400"><button type="button" onClick={handleBookmark}>{isBookmarked?

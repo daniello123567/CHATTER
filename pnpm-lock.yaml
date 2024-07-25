@@ -26,6 +26,9 @@ importers:
       '@tiptap/extension-underline':
         specifier: ^2.5.4
         version: 2.5.4(@tiptap/core@2.5.3(@tiptap/pm@2.5.3))
+      '@tiptap/extension-youtube':
+        specifier: ^2.5.5
+        version: 2.5.5(@tiptap/core@2.5.3(@tiptap/pm@2.5.3))
       '@tiptap/pm':
         specifier: ^2.5.3
         version: 2.5.3
@@ -53,6 +56,9 @@ importers:
       slate:
         specifier: ^0.103.0
         version: 0.103.0
+      use-debounce:
+        specifier: ^10.0.1
+        version: 10.0.1(react@18.3.1)
     devDependencies:
       '@tailwindcss/typography':
         specifier: ^0.5.13
@@ -415,6 +421,11 @@ packages:
     resolution: {integrity: sha512-o8T3oWbniA3rLo6LkslPRF8pwdjsaHXJCeK4KmKeCyYhTpMfjypT3uptd+VSSJ4iQkaiFInKeIUOBqqEQ9cADw==}
     peerDependencies:
       '@tiptap/core': ^2.5.4
+
+  '@tiptap/extension-youtube@2.5.5':
+    resolution: {integrity: sha512-dPLSLsEiMdXB5q0YDRJKWiiTqdFiSeyaC5qWLio4SHYfyTYT1+M2Wwox+5Dm/OSgCHpxpT2W8JRt+H4+P38t9A==}
+    peerDependencies:
+      '@tiptap/core': ^2.5.5
 
   '@tiptap/pm@2.5.3':
     resolution: {integrity: sha512-V7o4wgd4I+3nvEfnM+PEdFCjT7Yc/hL+I/cvOB5JPsxLglOvQQk/iQL3Yhji45odo3871EUTp9IsBQ3mztrPUA==}
@@ -1905,6 +1916,12 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  use-debounce@10.0.1:
+    resolution: {integrity: sha512-0uUXjOfm44e6z4LZ/woZvkM8FwV1wiuoB6xnrrOmeAEjRDDzTLQNRFtYHvqUsJdrz1X37j0rVGIVp144GLHGKg==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+
   use-sync-external-store@1.2.2:
     resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
     peerDependencies:
@@ -2299,6 +2316,10 @@ snapshots:
       '@tiptap/core': 2.5.3(@tiptap/pm@2.5.3)
 
   '@tiptap/extension-underline@2.5.4(@tiptap/core@2.5.3(@tiptap/pm@2.5.3))':
+    dependencies:
+      '@tiptap/core': 2.5.3(@tiptap/pm@2.5.3)
+
+  '@tiptap/extension-youtube@2.5.5(@tiptap/core@2.5.3(@tiptap/pm@2.5.3))':
     dependencies:
       '@tiptap/core': 2.5.3(@tiptap/pm@2.5.3)
 
@@ -4139,6 +4160,10 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  use-debounce@10.0.1(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   use-sync-external-store@1.2.2(react@18.3.1):
     dependencies:

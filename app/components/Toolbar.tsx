@@ -4,7 +4,10 @@ import {
   Heading2, Underline, Quote, Undo, Redo, Code,
   Heading1,
   Code2,
-  Image
+  Image,
+  Video,
+  Youtube,
+  VideoIcon
 } from 'lucide-react'
 import type { Editor } from '@tiptap/react';
 import { useState } from 'react'
@@ -38,6 +41,12 @@ function Toolbar({ editor,setLoader }: {setLoader:any, editor: Editor | null }) 
       }).run()
 
   }
+  const handleVideo = ()=>{
+    const url = prompt('enter video url');
+    if(url){
+      editor?.commands.setYoutubeVideo({src: url})
+    }
+  }
   if (!editor) return null;
 
   return (<>
@@ -49,6 +58,7 @@ function Toolbar({ editor,setLoader }: {setLoader:any, editor: Editor | null }) 
             e.preventDefault();
             editor.chain().focus().toggleBold().run()
           }}
+          className={editor.isActive("bold") ? "bg-switch-to-blue" : "normal-bg"}
           >
           <Bold />
 
@@ -209,6 +219,16 @@ function Toolbar({ editor,setLoader }: {setLoader:any, editor: Editor | null }) 
 
         >
           <Image />
+
+        </button>
+        <button
+          title='youtube video'
+          type='button'
+          onClick={handleVideo}
+          className={"normal-bg"}
+
+        >
+          <VideoIcon/>
 
         </button>
         <input title='image' onChange={returnFileInfo} className='image-input hidden' type="file" />
