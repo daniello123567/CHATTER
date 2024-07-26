@@ -26,11 +26,11 @@ function Hero() {
         <Image src='/imagey.svg' alt="designs" className="rounded-[1em] h-[7.5em]  lg:h-[8.75em] w-full" width={1} height={1} />
         <div className="flex mt-[1em] gap-x-3 w-full overflow-hidden">
           <Image className="rounded-[1em] w-[8.375em] h-[7.5em] lg:h-[8.75em]" src="/vim.gif" height={1} width={1} alt="design" />
-          <Image className="rounded-[1em] w-[70%] lg:w-[89%] lg:h-[8.75em]  h-[7.5em]" src='/one.avif' alt="designs" width={1} height={1} />
+          <Image className="rounded-[1em] w-[89%] lg:w-[89%] lg:h-[8.75em]  h-[7.5em]" src='/one.svg' alt="designs" width={1} height={1} />
         </div>
-        <Image src='/two.avif' alt="designs" className="rounded-[1em] lg:h-[8.75em] mt-[1em] h-[7.5em] w-full" width={1} height={1} />
+        <Image src='/two.svg' alt="designs" className="rounded-[1em] lg:h-[8.75em] mt-[1em] h-[7.5em] w-full" width={1} height={1} />
         <div className="flex mt-[1em] gap-x-3 w-full overflow-hidden">
-          <Image className="rounded-[1em] w-[8.375em] h-[7.5em] lg:h-[8.75em]"  src="/three.avif" height={1} width={1} alt="design" />
+          <Image className="rounded-[1em] w-[8.375em] h-[7.5em] lg:h-[8.75em]"  src="/three.svg" height={1} width={1} alt="design" />
           <Image className="rounded-[1em] w-[70%] sm:w-[90%] lg:h-[8.75em]  h-[7.5em]" src='/four.gif' alt="designs" width={1} height={1} />
         </div>
       </div>
