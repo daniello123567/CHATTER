@@ -23,7 +23,7 @@ function Hero() {
       </div>
 
       <div className="mt-[1em] w-full">
-        <Image src='/image.avif' alt="designs" className="rounded-[1em] h-[7.5em]  lg:h-[8.75em] w-full" width={1} height={1} />
+        <Image src='/imagey.svg' alt="designs" className="rounded-[1em] h-[7.5em]  lg:h-[8.75em] w-full" width={1} height={1} />
         <div className="flex mt-[1em] gap-x-3 w-full overflow-hidden">
           <Image className="rounded-[1em] w-[8.375em] h-[7.5em] lg:h-[8.75em]" src="/vim.gif" height={1} width={1} alt="design" />
           <Image className="rounded-[1em] w-[70%] lg:w-[89%] lg:h-[8.75em]  h-[7.5em]" src='/one.avif' alt="designs" width={1} height={1} />
