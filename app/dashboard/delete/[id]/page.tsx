@@ -3,7 +3,10 @@ import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import supabase from '@/app/utils/supabase'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { metadata } from '@/app/page';
 function Page({params}:{params:Params}) {
+  metadata.title=`deleting article ${params.id}`;
+  metadata.description=`deleting of articles`
   const {push} = useRouter();
    const handleDelete = async () =>{
         const {data,error} =  await supabase.from('articles').delete().eq('id',params.id);

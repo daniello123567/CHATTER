@@ -1,17 +1,17 @@
 import type { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { viewsOfArtcle,LikesOfArticle,Bookmarks,comments } from "@/app/actions/analyticalsuabaseactions";
 import LineChart from "@/app/components/Analytics";
+import { metadata } from "@/app/page";
 async function page({ params,searchParams }: {searchParams:any, params: Params }) {
   const articleId = params.id;
   const nameOfArticle = searchParams.title;
-  console.log(nameOfArticle);
-
   const bro = await Promise.all([viewsOfArtcle(articleId), Bookmarks(articleId), comments(articleId), LikesOfArticle(articleId)]).then((res) => { return res });
   const viewsCount = Number(bro[0])
   const BookmarkCount = Number(bro[1])
   const CommentsCount = Number(bro[2])
   const LikesCount = Number(bro[3])
-
+  metadata.title=`analytics for ${nameOfArticle}`
+  metadata.description=`${CommentsCount}comments,${LikesCount}Likes...`
 
   return (<div className="flex flex-col">
     <LineChart articlename={nameOfArticle} LikesCount={LikesCount} viewsCount={viewsCount} BookmarkCount={BookmarkCount} CommentsCount={CommentsCount}/>

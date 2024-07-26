@@ -2,6 +2,7 @@ import Article from "../components/Article";
 import { AllPosts,GetArticleByQuery,GetArticleByCategory,GetarticlebyCategoryQuery } from "../actions/supabaseactions";
 import Noresult from "../components/noResult";
 import { currentUser } from "@clerk/nextjs/server";
+import { Metadata } from "next";
 type articleType = {
   id:string;
   created_at:string;
@@ -15,10 +16,17 @@ type articleType = {
   name:string;
 }
 
+export const metadata:Metadata= {
+  title:'feeds page',
+  icons:'/ff.svg',
+  description:'this is where all your contents live',
+  keywords:["articles","learn","blogs","cool","chatter","altschoolafrica"]
+}
 async function Feed({searchParams}:any) {
   let article:Array<articleType>;
   const query = searchParams?.query;
   const category = searchParams?.category;
+  metadata.title = category||query || 'where chatter contents lives'
 
   const user = await currentUser()
   console.log(user?.id);

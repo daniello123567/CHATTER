@@ -3,6 +3,8 @@ import Header from "@/app/components/header";
 import Blog from "@/app/components/Blog";
 import supabase from "@/app/utils/supabase";
 import { currentUser } from "@clerk/nextjs/server";
+import { Metadata } from "next";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 type Blogs = {
     id: string,
     created_at: string,
@@ -17,12 +19,13 @@ type Blogs = {
 }
 type Blog = Array<Blogs>
 
-async function Page({params}:{params:any}) {
-  const user = await currentUser();
 
+async function Page({params,searchParams}:{params:any,searchParams:any}) {
+  const user = await currentUser();
   const id = params.id;
   const data = await GetArticleById(id);
-  const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
+  const {Title,Description,Content,created_at,Thumbnail,name} = data[0];
+
   const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
     const {data,error}= await supabase.from('viewsOnArticles').select('*').eq('user_id',user_id).eq('article_id',article_id);
     if(data?.length!==0){return true}else return false;
@@ -40,6 +43,8 @@ if(!CheckifuserhasViewed){
     <Header/>
     <Blog name={name} article_id={id} created_at={created_at} title={Title} description={Description} thumbnail={Thumbnail} content={Content}/>
     </div> )
+
+
 }
 
 export default Page
