@@ -7,7 +7,6 @@ import convertDate from "@/app/utils/dateConverter"
 import Link from "next/link"
 import { Plus } from "lucide-react"
 const inter = Inter({ weight: "700", subsets: ["latin"] })
-const inter2 = Inter({ weight: "400", subsets: ["latin"] });
 const inter3 = Inter({ subsets: ["latin"] });
 type artiClesType = {
   id: string,
@@ -27,14 +26,14 @@ type artiClesType = {
 
 
 
-async function page() {
+async function page({searchParams}:{searchParams:any}) {
+
   const user = await currentUser();
   const fetchArticlesByUserId = async (user_id: string | undefined) => {
     const { data, error } = await supabase.from('articles').select('*').eq('user_id', user_id);
     return data;
   }
   const usersArticles = await fetchArticlesByUserId(user?.id);
-  console.log(usersArticles);
 
   const UserArts = () => {
     if (usersArticles?.length === 0) return;
@@ -50,15 +49,15 @@ async function page() {
           <p>Date Created:<span className="font-normal">{convertDate(arts.created_at)}</span></p>
         </div>
         <div className="w-[5%] flex flex-col gap-1">
-          <div className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
+          <Link href={`/dashboard/analytics/${arts.id}/?title=${arts.Title}`} className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
             <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/analyse.svg' alt="analytics" width={1} height={1} />
-          </div>
-          <div className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
-            <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/edit.svg' alt="analytics" width={1} height={1} />
-          </div>
-          <div className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
+          </Link>
+          <Link href={`/dashboard/new/?edit=${arts.id}`} className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
+            <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/edit.svg' alt="edit button" width={1} height={1} />
+          </Link>
+          <Link href={`dashboard/delete/${arts.id}`} className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
             <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/delete.svg' alt="analytics" width={1} height={1} />
-          </div>
+          </Link>
         </div>
       </div>
     })}</div>
@@ -83,3 +82,4 @@ async function page() {
 }
 
 export default page
+export const revalidate = 50;

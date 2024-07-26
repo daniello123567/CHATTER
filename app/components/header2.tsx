@@ -8,9 +8,12 @@ import { useRouter } from 'next/navigation';
 function Header() {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
+  const redirectToHome = () =>{
+    router.push('/feed')
+  }
   return (
     <div className='h-[4em] z-50 fixed  lg:h-[5em] justify-between flex items-center p-[1em] border-b border-b-[#C2C2C2] bg-[#FFFFFF] w-full'>
-      <Image alt='design' src='/ff.svg' width={40} height={40} />
+      <Image alt='design' onClick={redirectToHome} src='/ff.svg' width={40} height={40} />
       <div className='flex items-center'>
         <SearchBar />
         <ClearBtn />

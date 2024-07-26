@@ -1,6 +1,8 @@
 import { GetArticleById } from "@/app/actions/supabaseactions";
 import Header from "@/app/components/header";
 import Blog from "@/app/components/Blog";
+import supabase from "@/app/utils/supabase";
+import { currentUser } from "@clerk/nextjs/server";
 type Blogs = {
     id: string,
     created_at: string,
@@ -14,10 +16,25 @@ type Blogs = {
     name:string
 }
 type Blog = Array<Blogs>
+
 async function Page({params}:{params:any}) {
+  const user = await currentUser();
+
   const id = params.id;
   const data = await GetArticleById(id);
   const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
+  const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
+    const {data,error}= await supabase.from('viewsOnArticles').select('*').eq('user_id',user_id).eq('article_id',article_id);
+    if(data?.length!==0){return true}else return false;
+  }
+
+const CheckifuserhasViewed = await hasUserViewedThisArticle(String(user?.id),id);
+if(!CheckifuserhasViewed){
+  await supabase.from('viewsOnArticles').insert({
+    user_id:user?.id,
+    article_id:id
+  });
+}
 
   return (<div className="w-full">
     <Header/>

@@ -5,6 +5,8 @@ import supabase from "@/app/utils/supabase"
 import { useUser } from "@clerk/nextjs"
 import TipTap from "@/app/components/Tiptap"
 import Header from "@/app/components/header"
+import { useSearchParams,useRouter } from "next/navigation"
+import { GetArticleById } from "@/app/actions/supabaseactions"
 const pop = Poppins({ weight: "400", subsets: ["latin"] });
 const Categories = () => {
   const categories: Array<string> = ["Inspiration", "Coding", "Entertainment", "Sports", "Politics", "Artificial Inteligence", "Movies", "Lifestyle"];
@@ -18,10 +20,17 @@ type U = {
   Content: string | undefined|null,
   Category: string | undefined,
   ThumbnailURL: string | undefined,
-  tags: Array<string | undefined>,
+  Tags: Array<string | undefined>,
 }
 function Page() {
+  const [editbro,setEditbro] = useState<any>()
+  const searchParams = useSearchParams();
+  const edit = searchParams.get('edit') ?? 'no edit';
+
+
+
   const { user } = useUser();
+  const Router = useRouter();
   const [imageUrlgettingReady, setImageurlgettingready] = useState<boolean>(false);
   const [savedContent,setSavedContent] = useState<string|null>('')
   const [tiptapContent, setTiptapContent] = useState<string|null|undefined>('')
@@ -32,16 +41,49 @@ function Page() {
     Content: '',
     Category: '',
     ThumbnailURL: '',
-    tags: [],
+    Tags: [],
   });
   useEffect(()=>{
   if(tiptapContent){
    localStorage.setItem('family',String(tiptapContent));
   }
   const savedContentor = localStorage.getItem('family');
-  setSavedContent(savedContentor)
+  if(edit ==='no edit'){
+  setSavedContent(savedContentor);
+  setTiptapContent(savedContentor);
+  }
 
-  },[tiptapContent,user])
+  },[tiptapContent,user,edit]);
+  useEffect(()=>{
+
+    const getArticleStuffs = async()=>{
+      const guy = await GetArticleById(edit);
+      const theObj = guy[0];
+      const {Title,Description,Content,Category,Thumbnail,Tags} = theObj;
+      setEditbro({
+        Title:Title,
+        Description:Description,
+        Content:Content,
+        Category:Category,
+        ThumbnailURL:Thumbnail,
+        Tags:[...Tags]
+      })
+      setTiptapContent(Content)
+
+
+    };
+    if(edit !== 'no edit'){
+  getArticleStuffs()
+    }else return;
+  },[]);
+  useEffect(()=>{
+    if(editbro){
+      setArticle(editbro);
+      setSavedContent(editbro.Content)
+      setTiptapContent(editbro.Content)
+    }
+  },[editbro])
+
 
   const getSupabaseFileName = async (file: any, filename: any) => {
     const { data, error } = await supabase.storage.from('images').upload(
@@ -71,21 +113,42 @@ function Page() {
   }
 
   const handleNewArticle = async (formData: FormData) => {
-    const titleData = String(formData.get('title'));
-    const descriptionData = String(formData.get('description'));
-    const categoryData = String(formData.get('category'))
-    setArticle({ ...article, Title: titleData, Description: descriptionData, Category: categoryData, Content: tiptapContent });
-    if (article.Category && article.Content && article.Description && article.ThumbnailURL && article.Title && article.tags) {
+    const titleData = formData.get('title');
+    const descriptionData = formData.get('description');
+    const categoryData = formData.get('category')
+    if(titleData&&descriptionData&&categoryData){
+      setArticle({ ...article, Title: String(titleData), Description: String(descriptionData), Category: String(categoryData), Content: tiptapContent});
+      console.log(article);
+    }
+    if (article.Category && tiptapContent && article.Description && article.ThumbnailURL && article.Title && article.Tags) {
+      if(edit === 'no edit'){
       const { data, error } = await supabase.from('articles').insert({
         user_id: user?.id,
         Title: titleData,
         Description: descriptionData,
-        Content: article.Content,
+        Content: tiptapContent,
         Category: categoryData,
         Thumbnail: article.ThumbnailURL,
-        Tags: [...article.tags],
+        Tags: [...article.Tags],
         name: user?.username
-      });
+      }).select();
+      console.log(data,error);
+      if(data){
+      const dataId = data[0]?.id
+      Router.push(`/article/${dataId}`)
+      }
+      ;}else{
+        const {data,error} = await supabase.from('articles').update({
+          Title: titleData,
+          Description: descriptionData,
+          Content: tiptapContent,
+          Category: categoryData,
+          Thumbnail: article.ThumbnailURL,
+          Tags: [...article.Tags],
+        }).eq('id',edit);
+        Router.push(`/article/${edit}`)
+
+      }
 
     } else {
       alert('complete all fields')
@@ -103,14 +166,14 @@ function Page() {
     setTag(e?.target.value);
   }
   function addTag(tagVal: string | undefined) {
-    if (article.tags.length < 7) {
-      setArticle({ ...article, tags: [...article.tags, tagVal] });
+    if (article.Tags.length < 7) {
+      setArticle({ ...article, Tags: [...article.Tags, tagVal] });
     }
     setTag('')
   }
   const deleteTag = (e: any) => {
-    const newTags = article.tags.filter((tag) => { return tag !== e.target.innerText })
-    setArticle({ ...article, tags: [...newTags] })
+    const newTags = article.Tags.filter((tag) => { return tag !== e.target.innerText })
+    setArticle({ ...article, Tags: [...newTags] })
   }
 
   return (
@@ -133,9 +196,9 @@ function Page() {
 
             </div>
             {imageUrlgettingReady ? 'loading...' : imageReady && <img alt="image of god" className="w-[10em] object-cover h-[10em]" src={article.ThumbnailURL} />}
-            {article.tags.length == 7 && <p className="text-sm text-red-600">Can&apos;t add more than seven tags sorry man...or woman</p>}
-            {article.tags.length >= 1 && <div className="flex gap-2">Choosen Tags:{
-              article?.tags.map((tag) => {
+            {article?.Tags.length == 7 && <p className="text-sm text-red-600">Can&apos;t add more than seven tags sorry man...or woman</p>}
+            {article?.Tags.length >= 1 && <div className="flex gap-2">Choosen Tags:{
+              article?.Tags.map((tag) => {
                 return <p onClick={deleteTag} className="bg-slate-200 rounded p-2" key={crypto.randomUUID()}>{tag}</p>
               })}</div>}
             <div className="w-full h-full relative">
@@ -143,7 +206,7 @@ function Page() {
               <button onClick={() => addTag(tag)} className="absolute top-0 lg:top-2 right-4 rounded px-[.7em] py-[.6em] text-white font-semibold bg-blue-600" type="button">Add Tag</button>
             </div>
             <TipTap savedcontent={savedContent} statesetter={setTiptapContent} />
-            <input type="submit" value="submit" />
+          <input type="submit" value={edit==='no edit'?'submit':'update'} />
           </form>
         </div>
       </div>
