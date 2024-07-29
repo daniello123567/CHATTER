@@ -20,10 +20,15 @@ async function GetArticleById(articleId: string): Promise<any> {
   const { data, error } = await supabase.from('articles').select('*').eq('id', articleId);
   return data;
 }
+ async function fetchUsersArticles(user_id:string){
+  const { data,error} = await supabase.from("articles").select('*').eq('user_id',user_id)
+ return {data,error};
+ }
 export {
   GetArticleById,
   AllPosts,
   GetArticleByCategory,
   GetArticleByQuery,
-  GetarticlebyCategoryQuery
+  GetarticlebyCategoryQuery,
+  fetchUsersArticles
 }

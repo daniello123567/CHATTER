@@ -1,85 +1,76 @@
-import { Inter } from "next/font/google"
-import supabase from "@/app/utils/supabase"
+"use client"
 import { UserProfile } from "@clerk/nextjs"
-import { currentUser } from "@clerk/nextjs/server"
-import Image from "next/image"
-import convertDate from "@/app/utils/dateConverter"
-import Link from "next/link"
-import { Plus } from "lucide-react"
-const inter = Inter({ weight: "700", subsets: ["latin"] })
-const inter3 = Inter({ subsets: ["latin"] });
-type artiClesType = {
-  id: string,
-  created_at: string,
-  user_id: string,
-  Title: string,
-  Description: string,
-  Content: string,
-  Category: string,
-  Thumbnail: string,
-  Tags: string | null,
-  name: string
+import { Outfit } from "next/font/google"
+import { useUser } from "@clerk/nextjs";
+import { useState,useEffect } from "react";
+import { fetchUsersArticles } from "@/app/actions/supabaseactions";
+import { useRouter } from "next/navigation";
+import Myarts from "@/app/components/myarts";
+import supabase from "@/app/utils/supabase";
+const outfit = Outfit({weight:'400',subsets:["latin"]});
+type U = {
+  Category?:string,
+  Content?:string,
+  Description?:string,
+  Tags?:string,
+  Thumbnail?:string,
+  Title?:string,
+  created_at?:string,
+  id?:string,
+   name?:string,
+   user_id?:string
 }
+function Page() {
+  const [myarticles,setmyarticles] = useState<Array<U>>([]);
+  const [visibility,setVisibilty] = useState(false);
+  const [deleteid,setDeleteid] = useState<string|undefined>('')
+  const {user,isLoaded} = useUser();
+  const router = useRouter();
 
 
-
-
-
-
-async function page({searchParams}:{searchParams:any}) {
-
-  const user = await currentUser();
-  const fetchArticlesByUserId = async (user_id: string | undefined) => {
-    const { data, error } = await supabase.from('articles').select('*').eq('user_id', user_id);
-    return data;
+  const fetchdata = async ()=>{
+   if(user?.id){
+    const {data,error} = await fetchUsersArticles(user.id)
+    if(data)setmyarticles([...data])
+   }
   }
-  const usersArticles = await fetchArticlesByUserId(user?.id);
 
-  const UserArts = () => {
-    if (usersArticles?.length === 0) return;
-    return <div>{usersArticles?.map((arts: artiClesType) => {
-      return <div className={`${inter3.className} mb-[1em] w-full bg-slate-200 flex items-center justify-between h-[8em] rounded p-[1em]`} key={arts.id}>
-        <div className="w-[30%] rounded bg-red-600 h-full">
-          <img src={arts.Thumbnail} className="w-full h-full object-cover" alt="image of a blog post" />
-        </div>
-        <div className="w-[60%] font-bold text-[1em]">
-          <p>Title:<span className="font-normal">{arts.Title}</span></p>
-          <p>Category:<span className="font-normal">{arts.Category}</span></p>
-          <p>Description:<span className="font-normal">{arts.Description}</span></p>
-          <p>Date Created:<span className="font-normal">{convertDate(arts.created_at)}</span></p>
-        </div>
-        <div className="w-[5%] flex flex-col gap-1">
-          <Link href={`/dashboard/analytics/${arts.id}/?title=${arts.Title}`} className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
-            <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/analyse.svg' alt="analytics" width={1} height={1} />
-          </Link>
-          <Link href={`/dashboard/new/?edit=${arts.id}`} className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
-            <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/edit.svg' alt="edit button" width={1} height={1} />
-          </Link>
-          <Link href={`dashboard/delete/${arts.id}`} className="bg-slate-300 hover:bg-slate-400 w-[max-content] px-2 rounded h-[max-content]">
-            <Image className="w-[2em] lg:w-[1.5em] h-[2em]" src='/delete.svg' alt="analytics" width={1} height={1} />
-          </Link>
-        </div>
-      </div>
-    })}</div>
-  }
+useEffect(()=>{
+  fetchdata()
+
+   },[user])
+   const handleDelete = async ()=>{
+     const newArts = myarticles.filter((arts)=>{
+           return arts.id !== deleteid
+     });
+     setmyarticles([...newArts])
+     const ff = await supabase.from('articles').delete().eq('id',deleteid);
+     setVisibilty(false)
+   }
+   console.log(myarticles);
+
   return (
-    <div className="grid pt-[10em] w-full place-items-center">
-      <UserProfile />
-      <div className="w-full">
-        <div className="lg:w-[65%] w-full mt-[1em] pt-3 px-[1em] mx-auto h-[20em] bg-slate-50">
-          <div className={`${inter.className} border-b-2 text-[3em] flex items-center justify-between`}>
-            <p>My Article(s)</p>
-            <Link href="/dashboard/new" className="text-[1em] bg-slate-300 p-2 rounded-full"><Plus /></Link>
+    <div className={`${outfit.className} pt-[5em] h-full`}>
+      <div className="w-[max-content] lg:pt-[7em] h-[max-content] mx-auto"><UserProfile/></div>
+      {visibility&&<div className="fixed top-2 right-3 z-50 bg-red-600 w-[19em] rounded text-center text-white font-semibold h-[8em]">
+        Are You sure You want to delete artice with id {deleteid}?
+        <button onClick={handleDelete} type="button" className="w-[4em] py-3 bg-red-300 text-white">Yes</button>
+        <button type="button" onClick={()=>setVisibilty(false)} className="w-[4em] py-3 bg-green-600 text-white">No</button>
+        </div>}
 
-          </div>
-          <div>
-            {usersArticles?.length !== 0 ? <UserArts /> : 'no articles man'}
-          </div>
+      <div className="w-full px-[1.3em]  mt-[2em] bg-[#101112]">
+        <p className="text-white text-[4.25em]">My Articles</p>
+        <div className="sm:flex flex-wrap">
+         {myarticles.length != 0 ? myarticles.map((art:U)=>{
+           return <Myarts id={art.id} onClick={()=>{
+            setVisibilty(!visibility);
+            setDeleteid(art.id)
+           }} thumbnail={art.Thumbnail} key={art.id} date={art.created_at} description={art.Description} title={art.Title}/>
+         }):'no articles'}
         </div>
       </div>
     </div>
   )
 }
 
-export default page
-export const revalidate = 50;
+export default Page

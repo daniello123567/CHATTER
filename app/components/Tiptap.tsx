@@ -7,7 +7,7 @@ import Image from '@tiptap/extension-image'
 import BulletList from '@tiptap/extension-bullet-list'
 import { useEffect } from 'react'
 import Listitem from '@tiptap/extension-list-item'
-import type { Editor } from '@tiptap/react'
+import { Editor } from '@tiptap/react'
 import Underline from '@tiptap/extension-underline'
 import Toolbar from './Toolbar'
 const bulletList = BulletList.configure({
@@ -21,10 +21,7 @@ const TipTap = ({ statesetter,savedcontent }: {savedcontent:string|null, statese
     statesetter(newContent)
   }
 
-  const body = document.querySelector('.guy');
-  body?.addEventListener('click',()=>{
-    setloading(false)
-  })
+
 
 
   const editor: Editor | null = useEditor({
@@ -42,12 +39,12 @@ const TipTap = ({ statesetter,savedcontent }: {savedcontent:string|null, statese
       handleChange(y)
     },
 
+
   })
   useEffect(()=>{
-    editor?.commands.setContent(String(savedcontent));
-    console.log('working',savedcontent);
-
+    editor?.commands.setContent(savedcontent)
   },[savedcontent])
+
 
   return <div className='w-full relative'>
    {loding&&<div className='bg-yellow-300 absolute z-40 rounded left-[3em] top-[3em] font-bold text-[2em] px-2 py-1'>

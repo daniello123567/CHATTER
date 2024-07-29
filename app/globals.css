@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.myeditor{@apply prose outline-none mt-[1em] prose-lead:leading-normal  prose-headings:mt-0 prose-headings:mb-0 prose-p:mb-0 prose-p:mt-0  w-full  flex flex-col px-4 py-3 justify-start border  border-gray-700 }
+.myeditor{@apply prose outline-none mt-[1em] pb-[10em] prose-lead:leading-normal  prose-headings:mt-0 prose-headings:mb-0 prose-p:mb-0 prose-p:mt-0  w-full  flex flex-col px-4 py-3 justify-start border  border-gray-700 }
 .btn-wrapper{@apply flex items-center gap-5 justify-between w-full lg:w-10/12 flex-wrap}
 .bg-switch-to-blue{@apply bg-sky-700 p-2 text-white transform scale-125 rounded-lg}
 .normal-bg{@apply p-2 text-sky-400}
