@@ -44,8 +44,8 @@ useEffect(()=>{
            return arts.id !== deleteid
      });
      setmyarticles([...newArts])
-     const ff = await supabase.from('articles').delete().eq('id',deleteid);
      setVisibilty(false)
+     const ff = await supabase.from('articles').delete().eq('id',deleteid);
    }
    console.log(myarticles);
 
