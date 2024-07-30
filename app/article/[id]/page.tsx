@@ -41,7 +41,7 @@ if(!CheckifuserhasViewed){
 
   return (<div className="w-full">
     <Header/>
-    <Blog name={name} article_id={id} created_at={created_at} title={Title} description={Description} thumbnail={Thumbnail} content={Content}/>
+    <Blog user_id={user?.id} name={name} article_id={id} created_at={created_at} title={Title} description={Description} thumbnail={Thumbnail} content={Content}/>
     </div> )
 
 

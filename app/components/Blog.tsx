@@ -2,9 +2,11 @@ import { Inter } from "next/font/google"
 import BackToBlogBtn from "./BackToBlogBtn"
 import convertDate from "../utils/dateConverter"
 import Comments from "./comments"
+import Likes from "./likes"
+import Bookmark from "./Bookmark"
 const inter = Inter({ weight: "600", subsets: ["latin"] })
 const inter2 = Inter({ subsets: ["latin"] })
-function Blog({ title, thumbnail, article_id,content,name,created_at ,description}: { description:string,created_at:string,article_id:string,title: string,name:string, thumbnail: string, content: string }
+function Blog({ user_id, title, thumbnail, article_id,content,name,created_at ,description}: {user_id:string|undefined, description:string,created_at:string,article_id:string,title: string,name:string, thumbnail: string, content: string }
 ) {
   return (
     <div className="px-[2em] mx-auto lg:px-[10em] w-full pt-[10em]">
@@ -20,6 +22,10 @@ function Blog({ title, thumbnail, article_id,content,name,created_at ,descriptio
       <div dangerouslySetInnerHTML={{ __html: content }} className={`${inter2.className} mt-[2em] text-[1.25em] prose`}>
 
       </div>
+      <div className="flex mt-[3em] gap-x-[2em]">
+      <Likes articleId={article_id} user_Id={user_id}/>
+       <Bookmark articleId={article_id} user_Id={user_id}/>
+       </div>
       <Comments article_id={article_id}/>
     </div>
   )

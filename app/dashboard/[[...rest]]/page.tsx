@@ -3,10 +3,12 @@ import { UserProfile } from "@clerk/nextjs"
 import { Outfit } from "next/font/google"
 import { useUser } from "@clerk/nextjs";
 import { useState,useEffect } from "react";
+import Link from "next/link";
 import { fetchUsersArticles } from "@/app/actions/supabaseactions";
 import { useRouter } from "next/navigation";
 import Myarts from "@/app/components/myarts";
 import supabase from "@/app/utils/supabase";
+import { Plus } from "lucide-react";
 const outfit = Outfit({weight:'400',subsets:["latin"]});
 type U = {
   Category?:string,
@@ -59,8 +61,13 @@ useEffect(()=>{
         </div>}
 
       <div className="w-full px-[1.3em]  mt-[2em] bg-[#101112]">
-        <p className="text-white text-[4.25em]">My Articles</p>
-        <div className="sm:flex flex-wrap">
+        <div className="flex justify-between items-center">
+
+          <Link className="text-white border px-[1em] py-[.6em] rounded-full" href='dashboard/bookmarks'>My Bookmarks</Link>
+          <p className="text-white text-[4.25em]">My Articles</p>
+        <Link href="/dashboard/new" className="bg-white p-[1em] rounded-full"><Plus/></Link></div>
+
+        <div  className="sm:flex flex-wrap">
          {myarticles.length != 0 ? myarticles.map((art:U)=>{
            return <Myarts id={art.id} onClick={()=>{
             setVisibilty(!visibility);
