@@ -1,6 +1,7 @@
 "use client"
 import { Inter } from "next/font/google"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 const inter = Inter({ weight: "600", subsets: ["latin"] });
 const inter2 = Inter({ weight: "400", subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ function FeedHero() {
       <div className="lg:w-[50%] mr-[12.25em]  w-full pt-[2em]">
         <div className="flex justify-between"><p className={`text-[1.25em] ${inter.className}`}>Categories
         </p>
+        <Link href='/foryou' className="bg-slate-50 px-[1em] py-[.6em] hover:bg-slate-100 rounded-full">For You</Link>
         </div>
         <div className={`${inter2.className} mt-[1em] md:mx-auto w-full flex text-[0.875em]`}>
           <p onClick={handleCategory} className={`w-[12.25em]  border-b hover:border-b-black ${category?.includes('inspiration') && ' border-b-2 border-b-black '}  hover:cursor-pointer`}>inspiration</p>

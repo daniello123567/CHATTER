@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Myarts from "@/app/components/myarts";
 import supabase from "@/app/utils/supabase";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 const outfit = Outfit({weight:'400',subsets:["latin"]});
 type U = {
   Category?:string,
@@ -60,8 +61,8 @@ useEffect(()=>{
         <button type="button" onClick={()=>setVisibilty(false)} className="w-[4em] py-3 bg-green-600 text-white">No</button>
         </div>}
 
-      <div className="w-full px-[1.3em]  mt-[2em] bg-[#101112]">
-        <div className="flex justify-between items-center">
+      <div className="w-full px-[1.3em] p-[1.6em]  mt-[2em] bg-[#101112]">
+        <div className="flex lg:flex-row flex-col justify-between items-center">
 
           <Link className="text-white border px-[1em] py-[.6em] rounded-full" href='dashboard/bookmarks'>My Bookmarks</Link>
           <p className="text-white text-[4.25em]">My Articles</p>
@@ -73,7 +74,10 @@ useEffect(()=>{
             setVisibilty(!visibility);
             setDeleteid(art.id)
            }} thumbnail={art.Thumbnail} key={art.id} date={art.created_at} description={art.Description} title={art.Title}/>
-         }):'no articles'}
+         }):
+         <>
+         <p className="md:text-[3em] text-[1.3em] text-center text-white">You dont an article yet. Click on the + sign to get started! </p>
+         <Image alt="no articles" className="w-[20em] mx-auto mt-3 object-contain" src='/presentation.gif' width={200} height={1}/></>}
         </div>
       </div>
     </div>

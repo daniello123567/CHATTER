@@ -8,7 +8,7 @@ const inter1 = Inter({weight:'600',subsets:["latin"]})
 type U = string;
 function Article({imageUrl,date,Title,name,category,articleId,user_id}:{user_id:string,imageUrl:U|any,date:U,Title:U,name:U,category:U,articleId:U}) {
   return (
-    <div  className="xl:w-[25.1041875em] relative mt-[2em] lg:mb-[9em] w-full h-[max-content] md:h-[max-content]  xl:h-[max-content] gap-y-[1em] flex flex-col">
+    <Link href={`/article/${articleId}`}  className="xl:w-[25.1041875em] relative mt-[2em] lg:mb-[9em] w-full h-[max-content] md:h-[max-content]  xl:h-[max-content] gap-y-[1em] flex flex-col">
       <div className="w-full h-full relative">
       <img  src={imageUrl} alt={Title} className="md:h-[22.6600625em] lg:h-[24em] xl:h-[23em] w-full object-cover rounded-[2em]"/>
       <div className="absolute top-4 left-7 bg-slate-200 px-3 py-2 rounded text-lg font-semibold">{category}</div>
@@ -22,7 +22,7 @@ function Article({imageUrl,date,Title,name,category,articleId,user_id}:{user_id:
 
       </div>
 
-    </div>
+    </Link>
   )
 }
 export const revalidate = 100;
