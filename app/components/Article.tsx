@@ -20,7 +20,7 @@ function Article({ imageUrl, date, Title, name, category, articleId, user_id }: 
           <Bookmark articleId={articleId} user_Id={user_id} />
         </div>
         <p className={`text-[0.875em] w-full text-[#5F6980] py-2 font-[400] ${inter2.className}`}>{convertDate(date)}. By {name}</p>
-        <p className={`w-full pb-2 ${inter1.className} text-[1.75em]`}>{Title}</p>
+        <Link href={`/article/${articleId}`}><p className={`w-full pb-2 ${inter1.className} text-[1.75em]`}>{Title}</p></Link>
 
       </div>
 
