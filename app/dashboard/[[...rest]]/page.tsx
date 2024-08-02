@@ -25,6 +25,7 @@ type U = {
   name?: string;
 }
 function Page() {
+  const [loading,setisLoading] = useState<boolean>(false)
   const [myarticles,setmyarticles] = useState<Array<U>>([]);
   const [error,isThereerror] = useState<boolean>(false)
   const [visibility,setVisibilty] = useState(false);
@@ -34,20 +35,22 @@ function Page() {
 
 
   const fetchdata = async ()=>{
+    setisLoading(true)
    if(user?.id){
     const {data,error} = await fetchUsersArticles(user.id)
     if(error){
-      console.log('yeahhh');
+      console.log(error);
 
     }
     if(data)setmyarticles([...data])
+      setisLoading(false)
+
    }
   }
 
 useEffect(()=>{
   fetchdata()
-
-   },[user])
+   },[user,isLoaded])
    const handleDelete = async ()=>{
      const newArts = myarticles.filter((arts)=>{
            return arts.id !== deleteid
@@ -74,7 +77,7 @@ useEffect(()=>{
         <Link href="/dashboard/new" className="bg-white p-[1em] rounded-full"><Plus/></Link></div>
 
         <div  className="sm:flex flex-wrap">
-         {myarticles.length != 0 ? myarticles.map((art:U)=>{
+         {isLoaded ? myarticles.map((art:U)=>{
            return <Myarts id={art.id} onClick={()=>{
             setVisibilty(!visibility);
             setDeleteid(art.id)
