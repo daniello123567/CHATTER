@@ -63,7 +63,7 @@ useEffect(()=>{
   return (
     <div className={`${outfit.className} pt-[5em] h-full`}>
       <div className="w-[max-content] lg:pt-[7em] h-[max-content] mx-auto"><UserProfile/></div>
-      {visibility&&<div className="fixed bottom-2 right-3 z-50 bg-red-600 w-[19em] rounded text-center text-white font-semibold h-[8em]">
+      {visibility&&<div className="fixed bottom-2 right-[3em] z-50 bg-red-600 w-[19em] rounded text-center text-white font-semibold h-[8em]">
         Are You sure You want to delete artice with id {deleteid}?
         <button onClick={handleDelete} type="button" className="w-[4em] py-3 bg-red-300 text-white">Yes</button>
         <button type="button" onClick={()=>setVisibilty(false)} className="w-[4em] py-3 bg-green-600 text-white">No</button>
