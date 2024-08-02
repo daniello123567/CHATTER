@@ -1,5 +1,5 @@
 
-function convertDate(dateString:any) {
+function convertDate(dateString:string):string {
 
   const date = new Date(dateString);
 

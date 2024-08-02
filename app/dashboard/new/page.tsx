@@ -15,7 +15,7 @@ type article = {
     name?:string,
     user_id?:string,
     category:string,
-    tags:Array<string>,
+    tags:Array<string|null>,
     content?:string,
     thumbnailUrl:string
 }
@@ -61,6 +61,7 @@ function Page() {
       const awaiting = async ()=>{
         if(!isEdit)return;
         const data = await GetArticleById(isEdit);
+        if(!data)return
         const {Title,Description,Category,Thumbnail,Tags,Content} = data[0];
             setArticle({...article,title:Title,description:Description,tags:[...Tags],thumbnailUrl:Thumbnail,category:Category});
             setsavedContent(Content)
@@ -178,7 +179,7 @@ const handleUpdate = async ()=>{
             return <button key={category} onClick={handleCategory} className="bg-green-600 outline px-[1em] py-[.6em] rounded-full text-sm outline-2 text-white font-bold outline-green-500" type="button">{category}</button>
           })}
         </div>
-        <h1 className="mt-[1em] font-bold">Thumbnail for Your Article😊</h1>
+        <h1 className="mt-[1em] font-bold">Thumbnail for Your Article😊. <span className="text-red-600">Please dont Upload more than 2MB to prevent hanging.</span> </h1>
         <div className="mt-[1em] mb-[2em] border-[.4em] w-full h-[20em] border-dashed">
           {<div onClick={handleImage} className="flex w-full cursor-pointer h-full items-center justify-center">
            {imageisLoaading? <Image className="w-[3em] h-[3em]" src='/Rocket.gif' width={1} height={1} alt="loading icon" />:article.thumbnailUrl?<img src={article.thumbnailUrl} className="w-full h-full object-contain" alt={`image of ${article.thumbnailUrl}`} />:<Plus />}
@@ -189,8 +190,8 @@ const handleUpdate = async ()=>{
 
         <label className="font-bold " htmlFor="tags">Enter tags</label>
         {article.tags.length==7 &&<p className="text-sm text-red-500">can&apos;t add more than 7 tags</p>}
-        {article.tags.length !==0 &&<div className="flex flex-wrap gap-x-[1em]">chosen tags: <span className="text-[.6em] text-red-600">click on anyone to remove</span>{article.tags.map((tag:string)=>{
-          return <p onClick={deleteTag} className="bg-slate-50 h-[max-content] cursor-pointer w-[max-content] px-[1em] py-[.6em]" key={tag}> {tag}</p>
+        {article.tags.length !==0 &&<div className="flex flex-wrap gap-x-[1em]">chosen tags: <span className="text-[.6em] text-red-600">click on anyone to remove</span>{article.tags.map((tag)=>{
+          return <p onClick={deleteTag} className="bg-slate-50 h-[max-content] cursor-pointer w-[max-content] px-[1em] mb-[.7em] py-[.6em]" key={tag}> {tag}</p>
         })}</div>}
         <input id="tags" value={tag} onChange={(e:any)=>setTag(e.target.value)} className="tagMan outline-none bg-slate-50 rounded-md block placeholder:text-sm w-full px-[1.3em] mt-[1em] py-[1em]" placeholder="tags e.g web development" type="text" />
         <button onClick={addTag} className="p-[.7em] mt-[1em] bg-blue-600 font-bold rounded text-white" type="button">Add Tag</button>

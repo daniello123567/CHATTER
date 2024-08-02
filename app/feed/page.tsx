@@ -20,20 +20,18 @@ export const metadata: Metadata = {
   title: 'feeds page',
   icons: '/ff.svg',
   description: 'this is where all your contents live',
-  keywords: ["articles", "learn", "blogs", "cool", "chatter", "altschoolafrica"]
+  keywords: ["articles", "learn", "blogs", "cool", "chatter", "altschoolafrica"],
 }
 async function Feed({ searchParams }: any) {
-  let article: Array<articleType>;
-  const query = searchParams?.query;
-  const category = searchParams?.category;
-  metadata.title = category || query || 'where chatter contents lives'
+  let article: Array<articleType>|null;
+  const query:string|null = searchParams?.query;
+  const category:string|null = searchParams?.category;
+  metadata.title = category || query || 'where chatter contents lives';
 
-  const user = await currentUser()
-  console.log(user?.id);
-
+  const user = await currentUser();
 
   if (query && !category) {
-    article = await GetArticleByQuery(query)
+    article = await GetArticleByQuery(query);
   }
   else if (category && !query) {
     article = await GetArticleByCategory(category)
@@ -42,7 +40,9 @@ async function Feed({ searchParams }: any) {
     article = await GetarticlebyCategoryQuery(query, category)
   }
   else if (!category && !query) {
+
     article = await AllPosts()
+
   }
   const Arts = () => {
     return <>{article?.length !== 0 ?
@@ -51,7 +51,6 @@ async function Feed({ searchParams }: any) {
           return <Article user_id={String(user?.id)} articleId={art?.id} category={art?.Category} name={art.name} Title={art.Title} date={art.created_at} key={art.id} imageUrl={art.Thumbnail} />
         }
         )}
-
       </div>
       :
       <Noresult />}</>
@@ -68,4 +67,4 @@ async function Feed({ searchParams }: any) {
 }
 
 export default Feed;
-export const revalidate = 100;
+export const revalidate = 50;

@@ -4,8 +4,9 @@ import convertDate from "../utils/dateConverter"
 import Comments from "./comments"
 import Likes from "./likes"
 import Bookmark from "./Bookmark"
-const inter = Inter({ weight: "600", subsets: ["latin"] })
-const inter2 = Inter({ subsets: ["latin"] })
+import type { NextFont } from "next/dist/compiled/@next/font"
+const inter:NextFont = Inter({ weight: "600", subsets: ["latin"] })
+const inter2:NextFont = Inter({ subsets: ["latin"] })
 function Blog({ user_id, title, thumbnail, article_id,content,name,created_at ,description}: {user_id:string|undefined, description:string,created_at:string,article_id:string,title: string,name:string, thumbnail: string, content: string }
 ) {
   return (

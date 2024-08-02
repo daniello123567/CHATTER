@@ -6,7 +6,7 @@ export const metadata:Metadata = {
 }
 function layout({children}:{children:React.ReactNode}) {
   return (
-    <div className="bg-[url('/signUpbg.jpg')]">{children}</div>
+    <body className="bg-[url('/signUpbg.jpg')]">{children}</body>
   )
 }
 

@@ -43,7 +43,7 @@ function Page() {
     <div className="w-[50%]">
       <p>{art.articles.Title}</p>
       <p>{art.articles.Description}</p>
-      <p>{convertDate(art.articles.created_at)}</p>
+      <p>{convertDate(String(art.articles.created_at))}</p>
 
     </div>
   </div>

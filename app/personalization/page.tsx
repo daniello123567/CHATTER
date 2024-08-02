@@ -1,6 +1,6 @@
 "use client"
 import { Poppins } from "next/font/google"
-import { useState } from "react"
+import {  useState } from "react"
 import supabase from "../utils/supabase"
 import { useUser } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
@@ -11,16 +11,15 @@ const categories = ["inspiration","Coding","Cooking","Entertainment","Sports","P
 function Personalize() {
   const [choosenCategories,setChoosenCategories] = useState<string[]>([])
   const [loading,isLoading] = useState(false)
-  const handleCat = (e:any)=>{
-
-      if(!choosenCategories.includes(e.target.innerText)){
+  const handleCat= (e:React.MouseEvent<HTMLButtonElement>&{target:{innerText:string}})=>{
+      if(!choosenCategories.includes(e?.target?.innerText )){
             setChoosenCategories([...choosenCategories,e.target.innerText])
       }else{
         alert(`${e.target.innerText} as already been added! click on them to remove!`)
       }
   }
 
-const handleDelete = (e:any)=>{
+const handleDelete = (e:React.MouseEvent<HTMLParagraphElement> & {target:{innerText:string}})=>{
       const newVal = choosenCategories.filter((category:string)=>category!==e.target.innerText);
       console.log(newVal);
 
@@ -31,7 +30,7 @@ const router = useRouter()
 const handleSubmit = async() =>{
   if(choosenCategories.length == 0){alert('pls choose at least one');return;}
   isLoading(true)
- const {data,error} = await supabase.from('personalized').insert({
+ await supabase.from('personalized').insert({
      user_id:user?.id,
      Categories:[...choosenCategories]
  });

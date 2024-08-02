@@ -1,6 +1,7 @@
+import type { NextFont } from "next/dist/compiled/@next/font"
 import { Inter } from "next/font/google"
 import Link from "next/link"
-const inter = Inter({subsets:["latin"],weight:"600"})
+const inter:NextFont = Inter({subsets:["latin"],weight:"600"})
 function footer() {
   return (
     <div className={`${inter.className} mb-[1em]  bg-black py-[4em] px-[1em] w-full h-[34.0625em] lg:h-[40.3em] rounded-[2.5em] mx-auto`}>

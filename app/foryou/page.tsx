@@ -15,25 +15,29 @@ type U =  {
   Description: string,
   Content: string,
   Category: string,
+  Categories?:string;
   Thumbnail: string,
   Tags:string|null|Array<string>,
   name:string
 }
 function Page() {
-const [categorys,setCategory] = useState<any>([])
-const[isLoading,setisloading] = useState(false)
+const [categorys,setCategory] = useState<Array<U>>([])
+const[isLoading,setisloading] = useState<boolean>(false)
 const {user} = useUser()
 const getCategories = async ()=>{
   setisloading(true)
   if(user?.id){
    const {data,error} = await supabase.from('personalized').select().eq('user_id',user?.id);
          if(data){
-          const bro = data[0];
+          const bro:U = data[0];
           const {Categories} = bro;
           let guy=[];
+          if(Categories)
         for(let category of Categories){
             const {data,error} = await supabase.from('articles').select('*').ilike('Category',category);
             if(data)
+              console.log(data);
+
             guy.push(data)
           }
 setCategory([...guy.flat()])
@@ -47,14 +51,13 @@ useEffect(()=>{
 
 
 },[user])
-console.log(categorys,"kk");
 
 
   return (
     <div className="px-[2em] mt-[2em]">
       <p className={`${pop.className} text-[3em]`}>Articles For You</p>
       <Link href='/feed' className={`${pop.className} `}>Back to Feeds.</Link>
-      {isLoading?<div className="flex gap-[.5em]"><Image src='/Rocket.gif' alt="loading" width={30} height={30}/>Loading...</div>:<>
+      {isLoading?<div className="flex gap-[.5em]"><Image src='/Rocket.gif' alt="loading" width={30} height={30}/>Loading Articles For You😊...</div>:<>
          <div className="flex flex-wrap gap-[1em] px-[2em]">
           {categorys.length!==0&& categorys.map((art:U)=>{
           return <Article user_id={String(user?.id)} articleId={art?.id} category={art?.Category} name={art.name} Title={art.Title} date={art.created_at} key={art.id} imageUrl={art.Thumbnail} />

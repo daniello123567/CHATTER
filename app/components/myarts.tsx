@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { BarChart, Delete, Edit, GitGraphIcon, LineChart } from "lucide-react";
 import convertDate from "@/app/utils/dateConverter";
-import Header from "./header";
 
 
 function Myarts({title,description,date,thumbnail,id,onClick}:{onClick:any,id:string|undefined,title:string|undefined,description:string|undefined,date:string|undefined,thumbnail:string|undefined}) {
@@ -13,7 +12,7 @@ function Myarts({title,description,date,thumbnail,id,onClick}:{onClick:any,id:st
             <div className="w-[50%]">
               <p>{title}</p>
               <p>{description}</p>
-              <p>{convertDate(date)}</p>
+              <p>{convertDate(String(date))}</p>
               <div className="flex gap-[1em] mt-[2em]">
                 <Link className="hover:bg-white p-[.2em] rounded w-[max-content] h-[max-content] hover:text-black" href={`/dashboard/analytics/${id}?title=${title}`} type="button"><LineChart/></Link>
                 <Link  className="hover:bg-white p-[.2em] rounded w-[max-content] h-[max-content] hover:text-black" href={`/dashboard/new?edit=${id}`}><Edit/></Link>

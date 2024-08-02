@@ -3,6 +3,7 @@ import { UserProfile } from "@clerk/nextjs"
 import { Outfit } from "next/font/google"
 import { useUser } from "@clerk/nextjs";
 import { useState,useEffect } from "react";
+import Notfound from "@/app/components/error";
 import Link from "next/link";
 import { fetchUsersArticles } from "@/app/actions/supabaseactions";
 import { useRouter } from "next/navigation";
@@ -12,19 +13,20 @@ import { Plus } from "lucide-react";
 import Image from "next/image";
 const outfit = Outfit({weight:'400',subsets:["latin"]});
 type U = {
-  Category?:string,
-  Content?:string,
-  Description?:string,
-  Tags?:string,
-  Thumbnail?:string,
-  Title?:string,
-  created_at?:string,
-  id?:string,
-   name?:string,
-   user_id?:string
+  id?: string;
+  created_at?: string;
+  user_id?: string;
+  Title?: string;
+  Description?: string;
+  Content?: string;
+  Category?: string;
+  Thumbnail?: string;
+  Tags?: Array<string | null>;
+  name?: string;
 }
 function Page() {
   const [myarticles,setmyarticles] = useState<Array<U>>([]);
+  const [error,isThereerror] = useState<boolean>(false)
   const [visibility,setVisibilty] = useState(false);
   const [deleteid,setDeleteid] = useState<string|undefined>('')
   const {user,isLoaded} = useUser();
@@ -34,6 +36,10 @@ function Page() {
   const fetchdata = async ()=>{
    if(user?.id){
     const {data,error} = await fetchUsersArticles(user.id)
+    if(error){
+      console.log('yeahhh');
+
+    }
     if(data)setmyarticles([...data])
    }
   }
@@ -50,7 +56,6 @@ useEffect(()=>{
      setVisibilty(false)
      const ff = await supabase.from('articles').delete().eq('id',deleteid);
    }
-   console.log(myarticles);
 
   return (
     <div className={`${outfit.className} pt-[5em] h-full`}>

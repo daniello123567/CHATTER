@@ -3,8 +3,9 @@ import convertDate from "../utils/dateConverter";
 import Link from "next/link";
 import Likes from "./likes";
 import Bookmark from "./Bookmark";
-const inter2 = Inter({weight:'400',subsets:["latin"]})
-const inter1 = Inter({weight:'600',subsets:["latin"]})
+import { NextFont } from "next/dist/compiled/@next/font";
+const inter2:NextFont = Inter({weight:'400',subsets:["latin"]})
+const inter1:NextFont = Inter({weight:'600',subsets:["latin"]})
 type U = string;
 function Article({imageUrl,date,Title,name,category,articleId,user_id}:{user_id:string,imageUrl:U|any,date:U,Title:U,name:U,category:U,articleId:U}) {
   return (
@@ -18,7 +19,7 @@ function Article({imageUrl,date,Title,name,category,articleId,user_id}:{user_id:
         <Bookmark articleId={articleId} user_Id={user_id}/>
         </div>
         <p className={`text-[0.875em] w-full text-[#5F6980] py-2 font-[400] ${inter2.className}`}>{convertDate(date)}. By {name}</p>
-        <Link href={`/article/${articleId}`} className={`w-full pb-2 ${inter1.className} text-[1.75em]`}>{Title}</Link>
+        <p  className={`w-full pb-2 ${inter1.className} text-[1.75em]`}>{Title}</p>
 
       </div>
 

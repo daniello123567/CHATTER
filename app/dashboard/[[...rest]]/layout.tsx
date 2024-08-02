@@ -1,7 +1,5 @@
 import Header from "@/app/components/header"
 import { Metadata } from "next"
-import { revalidatePath } from "next/cache"
-import { Revalidate } from "next/dist/server/lib/revalidate"
 export const metadata:Metadata = {
   title:'My dashboard',
   icons:'/ff.svg',

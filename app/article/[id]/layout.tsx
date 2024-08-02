@@ -6,6 +6,7 @@ type Props = {params:Params}
 export async function generateMetadata({params}:Props):Promise<Metadata|undefined> {
   const id = params.id;
   const data = await GetArticleById(id);
+  if(data){
   const {Title,Description,name} = data[0];
     return {
       title:Title,
@@ -13,7 +14,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata|undefine
       icons:'/ff.svg',
       authors:[{name:name}],
      }
-
+    }
 
 }
 async function layout({children}:{children:React.ReactNode}) {

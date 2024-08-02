@@ -13,8 +13,13 @@ export const metadata:Metadata = {
   authors:[{name:"daniel adetaiwo"}]
 
 }
+type feautures = {
+  name:string,
+  image:string,
+  feautures:Array<string>
+}
 const inter = Inter({subsets:["latin"]})
-const features = [{
+const features:Array<feautures> = [{
   name:'Dashboard.',
   image:'/dashboard.png',
   feautures:["track your progess"]

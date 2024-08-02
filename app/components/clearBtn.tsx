@@ -1,7 +1,8 @@
 "use client"
+import type { NextFont } from "next/dist/compiled/@next/font";
 import { Inter } from "next/font/google"
 import { useSearchParams,usePathname,useRouter } from "next/navigation";
-const inter = Inter({weight:"400",subsets:["latin"]});
+const inter:NextFont = Inter({weight:"400",subsets:["latin"]});
 function ClearBtn() {
   const path = usePathname();
   const router = useRouter();

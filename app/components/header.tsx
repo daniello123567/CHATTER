@@ -9,7 +9,7 @@ function Header() {
   const redirectToHome = () =>{
     router.push('/feed')
   }
-  const {isSignedIn} = useUser()
+  const {isSignedIn}:{isSignedIn:boolean|undefined} = useUser()
   return (
     <div className='h-[4em] z-50 fixed  lg:h-[5em] justify-between flex items-center p-[1em] border-b border-b-[#C2C2C2] bg-[#FFFFFF] w-full'>
       <Image alt='design' className='cursor-pointer' onClick={redirectToHome} src='/ff.svg' width={40} height={40}/>

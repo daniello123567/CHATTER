@@ -1,15 +1,14 @@
 "use client"
 import supabase from "../utils/supabase"
 import { useState,useEffect } from "react"
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 function Bookmark({articleId,user_Id}:{articleId:string,user_Id:string|undefined}) {
 const router = useRouter()
-  const [isBookmarked,setIsbookmarked] = useState(false)
+  const [isBookmarked,setIsbookmarked] = useState<boolean>(false)
 const [bookmarkCount,setBookmarksCount] = useState<number|undefined>(0)
 const checkifUserhasBookmarked = async ()=>{
-  const {data,error} = await supabase.from('bookmarks').select('*').eq('user_id',user_Id).eq('article_id',articleId);
+  const {data} = await supabase.from('bookmarks').select('*').eq('user_id',user_Id).eq('article_id',articleId);
   if(data?.length!=0){setIsbookmarked(true)};
 }
 const fetchBookmarksCount = async()=>{

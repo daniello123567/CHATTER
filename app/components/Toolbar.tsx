@@ -10,11 +10,10 @@ import {
   VideoIcon
 } from 'lucide-react'
 import type { Editor } from '@tiptap/react';
-import { useState } from 'react'
-import { redo, undo } from '@tiptap/pm/history'
+
 import supabase from '../utils/supabase';
 
-function Toolbar({ editor,setLoader }: {setLoader:any, editor: Editor | null }) {
+function Toolbar({ editor,setLoader }: {setLoader:React.Dispatch<boolean>, editor: Editor | null }) {
 
   const handleImage = ()=>{
     const image:HTMLInputElement|null = document.querySelector('.image-input')!;

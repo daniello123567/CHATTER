@@ -1,7 +1,8 @@
+import type { NextFont } from "next/dist/compiled/@next/font";
 import { Inter } from "next/font/google"
 import Image from "next/image"
 import Link from "next/link";
-const inter = Inter({ weight: '600', subsets: ["latin"] });
+const inter:NextFont = Inter({ weight: '600', subsets: ["latin"] });
 
 function Hero() {
   return (

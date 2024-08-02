@@ -13,7 +13,7 @@ import Toolbar from './Toolbar'
 const bulletList = BulletList.configure({
   itemTypeName: 'listItem'
 })
-const TipTap = ({ statesetter,savedcontent }: {savedcontent:string|null, statesetter: any }) => {
+const TipTap = ({ statesetter,savedcontent }:{savedcontent:string|null, statesetter:React.Dispatch<string> }) => {
   const [state, setState] = useState('')
   const [loding,setloading] = useState(false)
   const handleChange = (newContent: any) => {

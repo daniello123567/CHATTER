@@ -65,7 +65,7 @@ function Comments({article_id}:{article_id:string}) {
       {comments.toReversed().map((comment:U)=>{
         return <div className="mt-[1em] border-b-2" key={comment.id}>
           <div className="flex gap-2 items-center"><p className={`${inter.className} text-[1em] lg:text-[2em]`}>{comment.name}</p>
-          <p className="text-gray-400">{convertDate(comment.created_at)}</p></div>
+          <p className="text-gray-400">{convertDate(String(comment.created_at))}</p></div>
           <div>{comment.content}</div>
         </div>
       })}
