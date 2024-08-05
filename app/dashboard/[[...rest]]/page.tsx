@@ -3,7 +3,6 @@ import { UserProfile } from "@clerk/nextjs"
 import { Outfit } from "next/font/google"
 import { useUser } from "@clerk/nextjs";
 import { useState,useEffect } from "react";
-import Notfound from "@/app/components/error";
 import Link from "next/link";
 import { fetchUsersArticles } from "@/app/actions/supabaseactions";
 import { useRouter } from "next/navigation";

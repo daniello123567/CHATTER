@@ -20,11 +20,11 @@ type Blogs = {
 type Blog = Array<Blogs>
 
 
-async function Page({params,searchParams}:{params:Params,searchParams:Params}) {
+async function Page({params}:{params:Params}) {
   const user = await currentUser();
   const id = params.id;
   const data = await GetArticleById(id);
-  if(data){
+  if(!data)return;
   const {Title,Description,Content,created_at,Thumbnail,name} = data[0];
 
   const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
@@ -44,7 +44,7 @@ if(!CheckifuserhasViewed){
     <Header/>
     <Blog user_id={user?.id} name={name} article_id={id} created_at={created_at} title={Title} description={Description} thumbnail={Thumbnail} content={Content}/>
     </div> )
-  }
+
 
 }
 
