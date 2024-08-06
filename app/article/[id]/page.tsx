@@ -27,11 +27,11 @@ async function Page({params}:{params:Params}) {
   const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
 
   const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
-    const {data,error}= await supabase.from('viewsOnArticles').select('*').eq('user_id',user_id).eq('article_id',article_id);
-    if(data?.length!==0){return true}else return false;
+    const {data,error} = await supabase.from('viewsOnArticles').select('*').eq('user_id',user_id).eq('article_id',article_id);
+    if(data.length!==0){return true}else return false;
   }
 
-const CheckifuserhasViewed = await hasUserViewedThisArticle(String(user?.id),id);
+const CheckifuserhasViewed = await hasUserViewedThisArticle(String(user?.id),String(id));
 if(!CheckifuserhasViewed){
   await supabase.from('viewsOnArticles').insert({
     user_id:user?.id,
