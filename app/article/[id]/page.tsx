@@ -21,11 +21,10 @@ type Blog = Array<Blogs>
 
 async function Page({params}:{params:Params}) {
   const user = await currentUser();
-  console.log(user);
-
   const id = params.id;
   const data = await GetArticleById(id);
-  const {Title,Description,Content,created_at,Thumbnail,name} = data?.[0]
+  if(!data){alert('nodata!');return}
+  const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
 
   const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
     const {data,error} = await supabase.from('viewsOnArticles').select('*').eq('user_id',user_id).eq('article_id',article_id);

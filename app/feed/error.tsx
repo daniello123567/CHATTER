@@ -1,9 +1,9 @@
 "use client"
 import Notfound from "../components/error"
-function Error() {
+function Errorbro() {
   return (
     <Notfound/>
   )
 }
 
-export default Error
+export default Errorbro;
