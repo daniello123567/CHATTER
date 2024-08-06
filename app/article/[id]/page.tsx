@@ -3,7 +3,6 @@ import Header from "@/app/components/header";
 import Blog from "@/app/components/Blog";
 import supabase from "@/app/utils/supabase";
 import { currentUser } from "@clerk/nextjs/server";
-import { Metadata } from "next";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 type Blogs = {
     id: string,
@@ -22,10 +21,10 @@ type Blog = Array<Blogs>
 
 async function Page({params}:{params:Params}) {
   const user = await currentUser();
-  const id = params.id;
+  const id:string = params.id;
   const data = await GetArticleById(id);
   if(!data)return;
-  const {Title,Description,Content,created_at,Thumbnail,name} = data[0];
+  const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
 
   const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
     const {data,error}= await supabase.from('viewsOnArticles').select('*').eq('user_id',user_id).eq('article_id',article_id);
@@ -49,3 +48,4 @@ if(!CheckifuserhasViewed){
 }
 
 export default Page
+export const revalidate = 50;

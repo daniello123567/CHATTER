@@ -1,6 +1,6 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import supabase from "../utils/supabase";
-type articleType = {
+ type articleType = {
   id: string;
   created_at: string;
   user_id: string;
@@ -29,9 +29,9 @@ async function GetarticlebyCategoryQuery(query: string, category: string): Promi
   const { data: articles, error } = await supabase.from('articles').select('*').ilike('Title', `%${query}%`).ilike('Category', `%${category}%`);
   return articles;
 }
-async function GetArticleById(articleId: string): Promise<null|articleType[]>  {
+async function GetArticleById(articleId:string):Promise<null|articleType[]>{
   const { data, error } = await supabase.from('articles').select('*').eq('id', articleId);
-  return data;
+  return data ;
 }
 
  async function fetchUsersArticles(user_id:string):Promise<{data:articleType[]|null,error:string|null|PostgrestError}>{
