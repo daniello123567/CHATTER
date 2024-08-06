@@ -29,7 +29,7 @@ async function GetarticlebyCategoryQuery(query: string, category: string): Promi
   const { data: articles, error } = await supabase.from('articles').select('*').ilike('Title', `%${query}%`).ilike('Category', `%${category}%`);
   return articles;
 }
-async function GetArticleById(articleId:string):Promise<null|articleType[]>{
+async function GetArticleById(articleId:string){
   const { data, error } = await supabase.from('articles').select('*').eq('id', articleId);
   return data ;
 }
