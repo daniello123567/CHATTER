@@ -16,7 +16,8 @@ function Article({ imageUrl, date, Title, name, category, articleId, user_id }: 
         <div className="absolute top-4 left-7 bg-slate-200 px-3 py-2 rounded text-lg font-semibold">{category}</div>
       </div>
       <div className="w-full h-[max-content] mb-[1em] md:h-[max-content] lg:h-[2.444125em] flex flex-col">
-        <div className="flex pr-2 items-center mb-[1em] gap-[1em]"><Likes articleId={articleId} user_Id={user_id} />
+        <div className="flex pr-2 items-center mb-[1em] gap-[1em]">
+          <Likes articleId={articleId} user_Id={user_id} />
           <Bookmark articleId={articleId} user_Id={user_id} />
         </div>
         <p className={`text-[0.875em] w-full text-[#5F6980] py-2 font-[400] ${inter2.className}`}>{convertDate(date)}. By {name}</p>
@@ -27,5 +28,5 @@ function Article({ imageUrl, date, Title, name, category, articleId, user_id }: 
     </div>
   )
 }
-export const revalidate = 100;
+export const revalidate = 50;
 export default Article
