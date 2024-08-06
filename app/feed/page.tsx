@@ -48,7 +48,7 @@ async function Feed({ searchParams }: any) {
     return <>{article?.length !== 0 ?
       <div className="flex flex-wrap items-center justify-between">
         {article?.map((art: articleType) => {
-          return <Article user_id={String(user?.id)} articleId={art?.id} category={art?.Category} name={art.name} Title={art.Title} date={art.created_at} key={art.id} imageUrl={art.Thumbnail} />
+          return <Article user_id={String(user?.id)} articleId={art.id} category={art.Category} name={art.name} Title={art.Title} date={art.created_at} key={art.id} imageUrl={art.Thumbnail} />
         }
         )}
       </div>

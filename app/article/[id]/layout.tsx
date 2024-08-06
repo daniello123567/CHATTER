@@ -17,10 +17,10 @@ export async function generateMetadata({params}:Props):Promise<Metadata|undefine
     }
 
 }
-async function layout({children}:{children:React.ReactNode}) {
+async function RootLayout({children}:{children:React.ReactNode}) {
   return (
     <>{children}</>
   )
 }
 
-export default layout
+export default RootLayout

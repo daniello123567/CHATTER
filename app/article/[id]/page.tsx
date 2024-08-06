@@ -23,7 +23,7 @@ async function Page({params}:{params:Params}) {
   const user = await currentUser();
   const id = params.id;
   const data = await GetArticleById(id);
-  if(!data){alert('nodata!');return}
+  if(!data)return
   const {Title,Description,Content,created_at,Thumbnail,name} = data[0]
 
   const hasUserViewedThisArticle = async (user_id:string,article_id:string)=>{
