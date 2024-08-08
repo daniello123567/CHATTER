@@ -5,9 +5,9 @@ type Props = {params:Params}
 
 export async function generateMetadata({params}:Props):Promise<Metadata|undefined> {
   const id = params.id;
-  const data = await GetArticleById(id);
-  if(data){
-  const {Title,Description,name} = data[0];
+  const dataBoy = await GetArticleById(id);
+  if(dataBoy){
+  const {Title,Description,name} = dataBoy[0];
     return {
       title:Title,
       description:Description,
@@ -22,5 +22,4 @@ async function RootLayout({children}:{children:React.ReactNode}) {
     <>{children}</>
   )
 }
-
 export default RootLayout

@@ -14,23 +14,38 @@ import supabase from "../utils/supabase";
 }
 async function AllPosts(): Promise<Array<articleType>|null> {
   const { data: articles, error } = await supabase.from('articles').select('*');
+if(error!==null){
+  throw new Error('error has ocurred')
+}
   return articles;
 }
 async function GetArticleByQuery(search: string): Promise<null|articleType[]> {
-  const { data: articles, error } = await supabase.from('articles').select('*').ilike('Title', `%${search}%`)
+  const { data: articles, error } = await supabase.from('articles').select('*').ilike('Title', `%${search}%`);
+  if(error!==null){
+    throw new Error('error has ocurred')
+  }
   return articles;
 }
 async function GetArticleByCategory(category: string):Promise<null|articleType[]>  {
   category.toLowerCase();
   const { data: articles, error } = await supabase.from('articles').select('*').ilike('Category', `%${category}%`);
+  if(error!==null){
+    throw new Error('error has ocurred')
+  }
   return articles;
 }
 async function GetarticlebyCategoryQuery(query: string, category: string): Promise<null|articleType[]>  {
   const { data: articles, error } = await supabase.from('articles').select('*').ilike('Title', `%${query}%`).ilike('Category', `%${category}%`);
+  if(error!==null){
+    throw new Error('error has ocurred')
+  }
   return articles;
 }
 async function GetArticleById(articleId:string){
   const { data, error } = await supabase.from('articles').select('*').eq('id', articleId);
+  if(error!==null){
+    throw new Error('error has ocurred')
+  }
   return data ;
 }
 

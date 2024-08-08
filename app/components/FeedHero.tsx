@@ -1,6 +1,5 @@
 "use client"
 import { Inter } from "next/font/google"
-import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
@@ -12,19 +11,20 @@ function FeedHero() {
   const {  isSignedIn } = useUser();
   const searchParams = useSearchParams()
   const path = usePathname();
-  const { replace } = useRouter()
+  const { replace } = useRouter();
+  const category: string | null = searchParams.get('category');
   const handleCategory = (e:React.MouseEvent<HTMLParagraphElement>&{target:{innerText:string}}) => {
     const query: string | null = searchParams.get('query');
     const params = new URLSearchParams();
+
     params.set('category', e.target.innerText)
     if (query) {
       replace(`${path}?query=${query}&${params}`)
     }
     else replace(`${path}?${params}`);
 
-  }
-  const category: string | null = searchParams.get('category')
 
+  }
   return (<>
     <div className='w-full justify-between px-[1em] py-[4.5em] h-[max-content] lg:h-[22em] gap-x-[6em] flex flex-col lg:flex-row lg:py-[9em] lg:px-[3em]'>
       <div className="w-full">

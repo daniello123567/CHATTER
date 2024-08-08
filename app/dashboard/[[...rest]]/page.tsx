@@ -26,7 +26,6 @@ type U = {
 function Page() {
   const [loading,setisLoading] = useState<boolean>(false)
   const [myarticles,setmyarticles] = useState<Array<U>>([]);
-  const [error,isThereerror] = useState<boolean>(false)
   const [visibility,setVisibilty] = useState(false);
   const [deleteid,setDeleteid] = useState<string|undefined>('')
   const {user,isLoaded} = useUser();

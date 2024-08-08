@@ -6,11 +6,10 @@ export const metadata:Metadata = {
   description:'this is the sign up page. Tell us who you are'
 }
 function RootLayout({children}:{children:React.ReactNode}) {
-  return (<html>
-  <body  className="bg-[url('/signUpbg.jpg')] w-full h-full">
-  <div>{children}</div>
-  </body>
-  </html>
+  return (
+  <div className="bg-[url('/signUpbg.jpg')] grid pt-[1em] place-items-center w-full h-max">
+  {children}
+  </div>
   )
 }
 

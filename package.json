@@ -6,11 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.3",
     "@supabase/supabase-js": "^2.44.4",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "14.2.0",
     "@tiptap/extension-bullet-list": "^2.5.4",
     "@tiptap/extension-image": "^2.5.3",
     "@tiptap/extension-list-item": "^2.5.4",
@@ -20,6 +24,7 @@
     "@tiptap/react": "^2.5.3",
     "@tiptap/starter-kit": "^2.5.3",
     "chart.js": "^4.4.3",
+    "jsdom": "24.0.0",
     "lucide-react": "^0.408.0",
     "next": "14.2.5",
     "react": "^18",
@@ -28,13 +33,16 @@
     "react-google-charts": "^4.0.1",
     "react-loading-skeleton": "^3.4.0",
     "slate": "^0.103.0",
-    "use-debounce": "^10.0.1"
+    "use-debounce": "^10.0.1",
+    "vitest": "^2.0.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitest/ui": "^2.0.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",

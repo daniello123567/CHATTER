@@ -3,6 +3,7 @@ import { AllPosts, GetArticleByQuery, GetArticleByCategory, GetarticlebyCategory
 import Noresult from "../components/noResult";
 import { currentUser } from "@clerk/nextjs/server";
 import { Metadata } from "next";
+import type { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 type articleType = {
   id: string;
   created_at: string;
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   description: 'this is where all your contents live',
   keywords: ["articles", "learn", "blogs", "cool", "chatter", "altschoolafrica"],
 }
-async function Feed({ searchParams }: any) {
+async function Feed({ searchParams }:{searchParams:Params}) {
   let article: Array<articleType>|null;
   const query:string|null = searchParams?.query;
   const category:string|null = searchParams?.category;

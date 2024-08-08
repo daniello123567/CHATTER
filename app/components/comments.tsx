@@ -2,7 +2,7 @@
 import supabase from "../utils/supabase";
 import { useState,useEffect } from "react"
 import { Inter } from "next/font/google";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 const inter = Inter({weight:"700",subsets:["latin"]})
 import convertDate from "../utils/dateConverter";
@@ -20,12 +20,12 @@ function Comments({article_id}:{article_id:string}) {
   const router = useRouter()
   const {user} = useUser();
   const [comments,setComments] = useState<B>([]);
-  const commenter = async (formData:any)=>{
+  const commenter = async (formData:FormData)=>{
 
     const value = formData.get('content');
     const optimistic = {
       name:user?.emailAddresses[0].emailAddress,
-      content:value,
+      content:String(value),
       user_id:user?.id,
       article_id:article_id,
       created_at:Date.now(),
@@ -43,7 +43,7 @@ function Comments({article_id}:{article_id:string}) {
       article_id:article_id,
     });
   }else{
-   router.push('/signUp')
+   redirect('/signUp')
   }
 
   }
@@ -57,13 +57,13 @@ function Comments({article_id}:{article_id:string}) {
 
   useEffect(()=>{fetchCommentsOfarticle()},[article_id])
   return (<>
-    <form action={commenter} className=' mt-[6em]'>
+    <form action={commenter} className='mb-[3em] mt-[6em]'>
       <input className='border  w-[30%] block px-1 rounded mb-3 h-[4em]' name="content" placeholder='comment on this post' type="text" />
       <input className='bg-blue-600 font-bold px-2 py-1 text-white rounded' type="submit" value="comment" />
     </form>
     <div>
       {comments.toReversed().map((comment:U)=>{
-        return <div className="mt-[1em] border-b-2" key={comment.id}>
+        return <div className="mt-[1em] mb-[2em] border-b-2" key={comment.id}>
           <div className="flex gap-2 items-center"><p className={`${inter.className} text-[1em] lg:text-[2em]`}>{comment.name}</p>
           <p className="text-gray-400">{convertDate(String(comment.created_at))}</p></div>
           <div>{comment.content}</div>

@@ -5,9 +5,8 @@ import ClearBtn from './clearBtn';
 import Link from 'next/link';
 import { useUser,UserButton } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import { User } from '@clerk/nextjs/server';
 function Header() {
-  const { isLoaded, isSignedIn, user }= useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
   const redirectToHome = () =>{
     router.push('/feed')
