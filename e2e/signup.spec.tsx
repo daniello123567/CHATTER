@@ -1,4 +1,6 @@
-import {test,expect} from 'playwright/test'
+import {test,expect} from 'playwright/test';
+const randomUserNamesoTestdoesntCrashWithUserNameALreadyTaken = `Daniel${Date.now()}`;
+
 const Url = 'https://chatter-six-kappa.vercel.app'
 test('Sign Up Auth', async ({page})=>{
   await page.goto(`${Url}/signUp`);
@@ -10,7 +12,6 @@ test('Take user to Choose Categories they like for personlized content After sig
      return page.locator(element)
   }
   const randomEmailsoTestdoesntCrashWithEmailALreadyTaken = `Daniel${Date.now()}-+clerk_test@example.com`;
-  const randomUserNamesoTestdoesntCrashWithUserNameALreadyTaken = `Daniel${Date.now()}`;
 
   await page.goto(`${Url}/signUp`);
   const firstName = getMeThisElement('.cl-formFieldInput__firstName');
@@ -26,3 +27,4 @@ test('Take user to Choose Categories they like for personlized content After sig
   await page.locator('.cl-formButtonPrimary').click();
   await expect(page).toHaveURL(`${Url}/personalization`)
 });
+export {randomUserNamesoTestdoesntCrashWithUserNameALreadyTaken}

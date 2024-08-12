@@ -1,5 +1,6 @@
 "use client"
 import { Poppins } from "next/font/google"
+import Link from "next/link"
 import {  useState } from "react"
 import supabase from "../utils/supabase"
 import { useUser } from "@clerk/nextjs"
@@ -55,8 +56,8 @@ const handleSubmit = async() =>{
          setChoosenCategories([...categories])
       ;
       }} className={'w-max h-max px-[1em] text-white py-[.6em] bg-blue-600 lg:mr-[1em] rounded lg:mx-auto mr-[1em] mt-[1em]'}>Select All</button>
-      <button onClick={handleSubmit} type="button" className={!loading?`w-max h-max px-[1em] text-white
-       py-[.6em] bg-blue-600 lg:mr-[1em] rounded lg:mx-auto mr-[1em] mt-[1em]`:'bg-blue-400 py-[.6em] px-[1em] w-max h-max text-white rounded '}>Done</button>
+      <Link href={'/feed'} onClick={handleSubmit} type="button" className={!loading?`w-max doneBtn h-max px-[1em] text-white
+       py-[.6em] bg-blue-600 lg:mr-[1em] rounded lg:mx-auto mr-[1em] mt-[1em]`:'bg-blue-400 py-[.6em] doneBtn px-[1em] w-max h-max text-white rounded '}>Done</Link>
     </div>
   )
 }
