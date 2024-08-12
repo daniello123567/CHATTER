@@ -18,7 +18,7 @@ function Header() {
         <SearchBar />
         <ClearBtn />
       </div>
-      {!isSignedIn ? <Link href='/signUp' className={`text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Who are you?</Link> :
+      {!isSignedIn ? <Link href='/signUp' className={`text-[0.75em] signUp border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full `} type="button">Who are you?</Link> :
        <div className='flex gap-x-[1em]'>
        <Link className='text-[0.75em] border border-[#282828] px-2 py-2 hover:bg-[#282828] hover:text-white transform transition duration-75 ease-in rounded-full ' href='/dashboard'>Dashboard</Link>
        <UserButton userProfileUrl='/dashboard'/>

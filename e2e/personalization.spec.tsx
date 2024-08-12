@@ -4,11 +4,11 @@ test('Personalizaton', async ({page})=>{
   await page.goto(Url);
   expect(page).toHaveTitle(/Choose Your Fun On Chatter/);
 })
-test('Confirm Categories and Redirect', async ({page})=>{
+test('Confirm Categories', async ({page})=>{
   await page.goto(Url);
   const cat = page.locator('.cat');
   const CodingCategory = page.getByRole('button',{name:/coding/i})
   await CodingCategory.click();
-  expect(cat).toHaveText(/coding/)
+  expect(cat).toHaveText("Choosen Categories: Coding")
  expect(page.getByText(/coding/)).toHaveCount(2)
 })

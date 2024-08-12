@@ -6,7 +6,7 @@ test('landing page has correct title', async ({page})=>{
 })
 test('Expect Who Are You link to take user to sign Up Page', async ({page})=>{
   await page.goto('https://chatter-six-kappa.vercel.app');
-  await page.getByRole('link',{name:/Who are you/}).click();
+  await page.locator('.signUp').click()
   await expect(page).toHaveURL('https://chatter-six-kappa.vercel.app/signUp')
 })
 test('My Image Designs should be present and not less than 6', async ({page})=>{
