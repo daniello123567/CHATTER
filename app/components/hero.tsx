@@ -6,7 +6,7 @@ const inter:NextFont = Inter({ weight: '600', subsets: ["latin"] });
 
 function Hero() {
   return (
-    <div className={`bg-[#ffffff] ${inter.className} text-black px-[1em]  py-[5.8em] w-full`}>
+    <div id="hero" className={` bg-[#ffffff] ${inter.className} text-black px-[1em]  py-[5.8em] w-full`}>
       <div className="lg:flex lg:gap-x-3 w-full lg:mt-4 items-start">
         <p className={`lg:w-[50%]  lg:text-[5.375rem] tracking-tighter text-[3.125em]`}>Writing.  Meets. Talent.</p>
         <div className="lg:w-[50%]">
