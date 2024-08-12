@@ -1,5 +1,5 @@
 import {test,expect} from 'playwright/test'
-const Url = 'http://localhost:3000'
+const Url = 'https://chatter-six-kappa.vercel.app'
 test('Sign Up Auth', async ({page})=>{
   await page.goto(`${Url}/signUp`);
   await expect(page).toHaveURL(`${Url}/signUp`);
