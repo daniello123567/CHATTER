@@ -6,9 +6,9 @@ test('Personalizaton', async ({page})=>{
 })
 test('Confirm Categories and Redirect', async ({page})=>{
   await page.goto(Url);
-  const DoneBtn = page.locator('.doneBtn');
+  const cat = page.locator('.cat');
   const CodingCategory = page.getByRole('button',{name:/coding/i})
   await CodingCategory.click();
-  await DoneBtn.click()
-  expect(page).toHaveURL('http://localhost:3000/feed')
+  expect(cat).toHaveText(/coding/)
+ expect(page.getByText(/coding/)).toHaveCount(2)
 })

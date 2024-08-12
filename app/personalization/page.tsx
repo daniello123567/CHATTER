@@ -44,7 +44,7 @@ const handleSubmit = async() =>{
       <p className={`${Popp.className} text-[3em] lg:text-[7em] font-bold`}>Personalize.</p>
       <div>
         <p>Choose Categories of articles You&apos;re insterested in</p>
-        {choosenCategories.length!==0 && <div className="font-semibold mt-[1em] flex items-center gap-[2em] flex-wrap">Choosen Categories: {choosenCategories.map((category:string)=><p className="bg-slate-100 px-5 py-2 w-max rounded" onClick={handleDelete} key={category}>{category}</p>)}</div>}
+        {choosenCategories.length!==0 && <div className="cat font-semibold mt-[1em] flex items-center gap-[2em] flex-wrap">Choosen Categories: {choosenCategories.map((category:string)=><p className="bg-slate-100 px-5 py-2 w-max rounded" onClick={handleDelete} key={category}>{category}</p>)}</div>}
         <div className="flex gap-[1em] flex-wrap mt-[1em]">
          {categories.map((category:string)=>{
           return <button key={category} onClick={handleCat} className="bg-pink-600 outline outline-pink-400 text-white font-bold px-[1.2em] py-[.7em] rounded-full" type="button">{category}</button>
