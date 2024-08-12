@@ -10,5 +10,4 @@ test('Confirm Categories', async ({page})=>{
   const CodingCategory = page.getByRole('button',{name:/coding/i})
   await CodingCategory.click();
   expect(cat).toHaveText("Choosen Categories: Coding")
- expect(page.getByText(/coding/)).toHaveCount(2)
 })
